@@ -1,4 +1,10 @@
 # Power BI Project: Cohort Analysis
+Watch Live Dashboard: Click here <p align="center">
+  <a href="https://app.powerbi.com/view?r=eyJrIjoiMDI2NjZjYzgtODUwNC00MzQ3LTg4Y2ItZWFhYzE5ZGVlNjIxIiwidCI6IjQxYjQ2M2RkLTg1ZWItNGE1NS1iYTZmLTVhMWFjYWMyYjA5YyIsImMiOjEwfQ%3D%3D" target="_blank">
+    <img src="https://img.shields.io/badge/Click%20Here-Power%20BI-blue?style=for-the-badge" alt="Click Here">
+  </a>
+</p>
+
 The goal of this project is to analyze customer churn and perform cohort analysis using transactional data from an online retail store. The dataset contains records from two periods: 2009-2010 and 2010-2011. By leveraging cohort analysis, the project aims to identify customer retention trends, understand churn behavior, and provide actionable insights to improve customer retention strategies.
 
 ## Table of Contents
