@@ -1,4 +1,5 @@
 # Power BI Project: Cohort Analysis
+The goal of this project is to analyze customer churn and perform cohort analysis using transactional data from an online retail store. The dataset contains records from two periods: 2009-2010 and 2010-2011. By leveraging cohort analysis, the project aims to identify customer retention trends, understand churn behavior, and provide actionable insights to improve customer retention strategies.
 
 ## Table of Contents
 1. [Dataset Details](#dataset-details)
