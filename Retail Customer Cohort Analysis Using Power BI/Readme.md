@@ -1,1 +1,127 @@
+# Power BI Project: Cohort Analysis
+
+## Table of Contents
+1. [Dataset Details](#dataset-details)
+2. [Data Preprocessing Steps](#data-preprocessing-steps)
+3. [Additional Tables Created](#additional-tables-created)
+   - [DimCustomer Table](#dimcustomer-table)
+   - [DimDate Table](#dimdate-table)
+4. [Data Modeling](#data-modeling)
+5. [DAX Measures](#dax-measures)
+   - [General Measures](#general-measures)
+   - [Cohort Measures](#cohort-measures)
+6. [Dashboard and Visualization](#dashboard-and-visualization)
+   - [Customers by Cohort and Months after First Purchase](#customers-by-cohort-and-months-after-first-purchase)
+   - [Churned Customer Trend Analysis](#churned-customer-trend-analysis)
+   - [Lost Customer and Recovered Customer Analysis](#lost-customer-and-recovered-customer-analysis)
+7. [Project Impact](#project-impact)
+
+## Dataset Details
+
+### Columns in the Dataset:
+- **InvoiceNo**: A 6-digit integral number uniquely assigned to each transaction. If the code starts with 'C', it indicates a cancellation.
+- **StockCode**: A 5-digit integral number uniquely assigned to each distinct product.
+- **Description**: The name of the product/item.
+- **Quantity**: The quantity of each product/item per transaction (numeric).
+- **InvoiceDate**: The date and time when each transaction was generated.
+- **UnitPrice**: The unit price of the product, in sterling.
+- **CustomerID**: A 5-digit integral number uniquely assigned to each customer.
+- **Country**: The name of the country where each customer resides.
+
+[🔼 Back to Table of Contents](#table-of-contents)
+
+## Data Preprocessing Steps
+1. Removed canceled orders (invoices starting with 'C') from `InvoiceNo`.
+2. Removed empty values from `CustomerID`.
+3. Created a `sales` column by multiplying `Quantity` and `UnitPrice`.
+4. Created a `month since first transaction` column:
+   ```DAX
+   month since first transaction = 
+   DATEDIFF(RELATED(DimCustomer[First Transaction Month]),
+   RELATED(DimDate[Date]), MONTH)
+   ```
+5. Created a `week since first transaction` column:
+   ```DAX
+   week since first transaction = 
+   DATEDIFF(RELATED(DimCustomer[First Transaction Week]),
+   RELATED(DimDate[Date]), WEEK)
+   ```
+
+[🔼 Back to Table of Contents](#table-of-contents)
+
+## Additional Tables Created
+
+### DimCustomer Table
+- Contains `CustomerID`, `First Transaction Month`, and `First Transaction Week`.
+
+### DimDate Table
+- Contains all unique dates from 12/1/2010 to 12/9/2011.
+- Includes `Start of Month` and `Start of Week` attributes.
+
+[🔼 Back to Table of Contents](#table-of-contents)
+
+## Data Modeling
+![Data Modeling](https://github.com/Tanim-code/power-Bi-project/assets/86589317/ed9e61bb-1c8d-4954-b298-0c561b009733)
+
+[🔼 Back to Table of Contents](#table-of-contents)
+
+## DAX Measures
+
+### General Measures
+```DAX
+Avg Order Value = DIVIDE([Revenue], [Total Order])
+```
+```DAX
+Avg Revenue per Customer = DIVIDE([Revenue], [Total Customer])
+```
+```DAX
+Unit Sold = SUM(FactSales[Quantity])
+```
+```DAX
+Total Order = DISTINCTCOUNT(FactSales[Invoice])
+```
+```DAX
+Total Customer = COUNTROWS(DimCustomer)
+```
+```DAX
+Revenue = SUMX(FactSales, FactSales[Quantity] * FactSales[Price])
+```
+
+### Cohort Measures
+```DAX
+Active Customer = COUNTROWS(VALUES(FactSales[Customer ID]))
+```
+```DAX
+Churned Customer = 
+SWITCH(TRUE(),
+    ISBLANK([Retention Rate]), BLANK(),
+    [New Customer] - [Cohort Performance]
+)
+```
+```DAX
+Churned Rate = [Churned Customer] / [New Customer]
+```
+
+[🔼 Back to Table of Contents](#table-of-contents)
+
+## Dashboard and Visualization
+
+### Customers by Cohort and Months after First Purchase
+![image](https://github.com/user-attachments/assets/fae91010-329b-4a17-9425-1f2df00ddbbf)
+
+### Churned Customer Trend Analysis
+![image](https://github.com/user-attachments/assets/46199aa7-25bf-4b3f-bd2f-d928e779e9c4)
+
+### Lost Customer and Recovered Customer Analysis
+![image](https://github.com/user-attachments/assets/c865aaa1-d53d-4199-8a35-5a4b55cb7d26)
+
+[🔼 Back to Table of Contents](#table-of-contents)
+
+## Project Impact
+This project provides stakeholders with actionable insights derived from cohort analysis. The results enable data-driven decision-making to:
+- Enhance customer retention.
+- Optimize marketing strategies.
+- Maximize revenue generation.
+
+[🔼 Back to Table of Contents](#table-of-contents)
 
