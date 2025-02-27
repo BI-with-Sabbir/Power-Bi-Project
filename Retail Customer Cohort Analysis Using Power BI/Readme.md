@@ -47,6 +47,77 @@ The goal of this project is to analyze customer churn and perform cohort analysi
    DATEDIFF(RELATED(DimCustomer[First Transaction Week]),
    RELATED(DimDate[Date]), WEEK)
    ```
+```DAX
+Rev growth % = 
+VAR up_arrow = UNICHAR(129137)
+VAR down_arrow = UNICHAR(129139)
+VAR Current_revenue = [Revenue]
+VAR pm_revenue = [previous month revenue]
+VAR MOM_growth = DIVIDE(Current_revenue - pm_revenue, pm_revenue)
+RETURN
+IF(MOM_growth < 0, ROUND(MOM_growth * 100, 1) & "% " & down_arrow,
+ROUND(MOM_growth * 100, 1) & "% " & up_arrow)
+```
+```DAX
+previous month revenue = CALCULATE([Revenue], DATEADD(DimDate[Date], -1, MONTH))
+```
+```DAX
+previous month Orders = CALCULATE([Total Order], DATEADD(DimDate[Date], -1, MONTH))
+```
+
+### Cohort Measures
+```DAX
+Active Customer = COUNTROWS(VALUES(FactSales[Customer ID]))
+```
+```DAX
+Churned Customer = SWITCH(TRUE(), ISBLANK([Retention Rate]), BLANK(), [New Customer] - [Cohort Performance])
+```
+```DAX
+Churned Rate = [Churned Customer] / [New Customer]
+```
+```DAX
+Cohort Performance = 
+VAR mindate = MIN(DimDate[Start of Month])
+VAR maxdate = MAX(DimDate[Start of Month])
+RETURN
+CALCULATE([Active Customer], REMOVEFILTERS(DimDate[Start of Month]),
+RELATEDTABLE(DimCustomer), DimCustomer[First Transaction Month] >= mindate &&
+DimCustomer[First Transaction Month] <= maxdate)
+```
+```DAX
+Difference = [Active Customer] - [Validation]
+```
+```DAX
+Lost Customer = 
+VAR currentmonth_customer = VALUES(FactSales[Customer ID])
+VAR previousmonth_customer = CALCULATETABLE(VALUES(FactSales[Customer ID]), PREVIOUSMONTH(DimDate[Start of Month]))
+VAR lost_customer = EXCEPT(previousmonth_customer, currentmonth_customer)
+RETURN COUNTROWS(lost_customer)
+```
+```DAX
+New Customer = CALCULATE([Active Customer], FactSales[month since first transaction] = 0)
+```
+```DAX
+Recovered Customers = 
+VAR _CustomersThisMonth = VALUES(FactSales[Customer ID])
+VAR _CustomersLastMonth = CALCULATETABLE(VALUES(FactSales[Customer ID]), PREVIOUSMONTH(DimDate[Start of Month]))
+VAR _NewCustomers = CALCULATETABLE(VALUES(FactSales[Customer ID]), FactSales[Month Since First Transaction] = 0)
+VAR _RecoveredCustomers = EXCEPT(EXCEPT(_CustomersThisMonth, _CustomersLastMonth), _NewCustomers)
+RETURN COUNTROWS(_RecoveredCustomers)
+```
+```DAX
+Retained Customer = 
+VAR currentmonth_customer = VALUES(FactSales[Customer ID])
+VAR previousmonth_customer = CALCULATETABLE(VALUES(FactSales[Customer ID]), PREVIOUSMONTH(DimDate[Start of Month]))
+VAR retain_customer = INTERSECT(currentmonth_customer, previousmonth_customer)
+RETURN COUNTROWS(retain_customer)
+```
+```DAX
+Retention Rate = DIVIDE([Cohort Performance], [New Customer])
+```
+```DAX
+Validation = [New Customer] + [Retained Customer] + [Recovered Customers]
+```
 
 [🔼 Back to Table of Contents](#table-of-contents)
 
