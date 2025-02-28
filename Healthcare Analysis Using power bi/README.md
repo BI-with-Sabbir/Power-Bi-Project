@@ -13,14 +13,14 @@ This project analyzes hospital inpatient discharge data to gain insights into he
 ---
 
 ## 📖 Table of Contents  
-1. [Dataset Details](#dataset-details)  
-2. [Data Preprocessing](#data-preprocessing)  
-3. [Data Modeling](#data-modeling)  
-4. [DAX Measures](#dax-measures)  
-5. [Dashboard & Visualizations](#dashboard-and-visualizations)  
-6. [Key Findings](#key-findings)  
-7. [Recommendations](#recommendations)  
-8. [Project Impact](#project-impact)  
+- [Dataset Details](#-dataset-details)  
+- [Data Preprocessing](#-data-preprocessing)  
+- [Data Modeling](#-data-modeling)  
+- [DAX Measures](#-dax-measures)  
+- [Dashboard & Visualizations](#-dashboard--visualizations)  
+- [Key Findings](#-key-findings)  
+- [Recommendations](#-recommendations)  
+- [Project Impact](#-project-impact)  
 
 ---
 
@@ -55,7 +55,7 @@ This project analyzes hospital inpatient discharge data to gain insights into he
 - `total_charges`  
 - `total_costs`  
 
-[🔼 Back to Table of Contents](#table-of-contents)
+[🔼 Back to Table of Contents](#-table-of-contents)
 
 ---
 
@@ -83,14 +83,14 @@ This project analyzes hospital inpatient discharge data to gain insights into he
    ">=600")))
    ```
 
-[🔼 Back to Table of Contents](#table-of-contents)
+[🔼 Back to Table of Contents](#-table-of-contents)
 
 ---
 
 ## 📊 Data Modeling  
 ![Data Model](https://github.com/user-attachments/assets/b2421ade-d56e-43eb-818d-7bce8d2fb7d6)
 
-[🔼 Back to Table of Contents](#table-of-contents)
+[🔼 Back to Table of Contents](#-table-of-contents)
 
 ---
 
@@ -113,7 +113,7 @@ Average LOS Days = AVERAGE(hospital_discharges[length_of_stay])
 Average Cost Per Discharge = AVERAGE(hospital_discharges[total_costs])
 ```
 
-[🔼 Back to Table of Contents](#table-of-contents)
+[🔼 Back to Table of Contents](#-table-of-contents)
 
 ---
 
@@ -125,7 +125,10 @@ Average Cost Per Discharge = AVERAGE(hospital_discharges[total_costs])
 ### 📌 Cost Comparison  
 ![Cost Comparison](https://github.com/user-attachments/assets/79947642-3e5e-4942-91b1-267cd662599d)
 
-[🔼 Back to Table of Contents](#table-of-contents)
+### 📌 Hospital Profile  
+![image](https://github.com/user-attachments/assets/2a0e7625-9711-475a-b084-487b75322729)
+
+[🔼 Back to Table of Contents](#-table-of-contents)
 
 ---
 
@@ -141,6 +144,8 @@ Average Cost Per Discharge = AVERAGE(hospital_discharges[total_costs])
 - Strong Memorial Hospital has the highest average LOS, which may indicate more complex cases or inefficiencies.  
 - The Unity Hospital of Rochester has the lowest LOS, possibly reflecting higher efficiency in patient turnover.  
 
+[🔼 Back to Table of Contents](#-table-of-contents)
+
 ---
 
 ## 🏥 Recommendations  
@@ -153,7 +158,7 @@ Average Cost Per Discharge = AVERAGE(hospital_discharges[total_costs])
 - Compare hospitals with high vs. low treatment costs and analyze the quality of care.  
 - Negotiate better cost structures or improve resource allocation.  
 
-[🔼 Back to Table of Contents](#table-of-contents)
+[🔼 Back to Table of Contents](#-table-of-contents)
 
 ---
 
@@ -165,5 +170,3 @@ Average Cost Per Discharge = AVERAGE(hospital_discharges[total_costs])
 ✔ Enhance hospital performance benchmarking  
 
 ---
-
-
