@@ -260,7 +260,8 @@ Average Transaction = [Total transaction volume]/[Total Transaction]
 
 
 ### 📌 Agent Network Optimization
-![Cost Comparison](https://github.com/user-attachments/assets/79947642-3e5e-4942-91b1-267cd662599d)
+![image](https://github.com/user-attachments/assets/c795d3e1-f843-4f42-8f04-3b4f725eac1e)
+
 
 ### 📌 Customer Insights
 ![image](https://github.com/user-attachments/assets/b2196048-3ccd-467d-95df-95a9333b8435)
@@ -272,8 +273,7 @@ Average Transaction = [Total transaction volume]/[Total Transaction]
 
 ## 📊 Key Findings  
 
-### 🔹 LOS (Length of Stay) Analysis  
-Transaction Overview
+### 🔹Transaction Overview
 Total Transaction Volume: 22.0bn – Indicates a strong financial activity in the fintech ecosystem.
 Total Transactions: 455.8K – Shows a high level of customer engagement.
 Average Transaction Size: 48.3K – Suggests relatively large transactions per user.
