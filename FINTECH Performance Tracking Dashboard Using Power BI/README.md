@@ -264,7 +264,8 @@ Average Transaction = [Total transaction volume]/[Total Transaction]
 
 
 ### 📌 Customer Insights
-![image](https://github.com/user-attachments/assets/b2196048-3ccd-467d-95df-95a9333b8435)
+![image](https://github.com/user-attachments/assets/880becc0-048f-41bb-a9a7-372f6c0bba79)
+
 
 
 [🔼 Back to Table of Contents](#-table-of-contents)
