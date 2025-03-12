@@ -402,26 +402,40 @@ CALCULATE( [Cash Flow Values],
 ---
 
 ## 📊 Key Findings  
-- **Sales Trend Over Time:** Total sales show fluctuations over time, with notable peaks around Feb 2021..  
+- **Sales Trend Over Time:** Total sales show fluctuations over time, with notable peaks around Feb 2021.
+
 - **Top Performing Customers:** The top 5 customers by total sales include Eayo Company, Holston Company, Dazzleshape Corp, Skyvu Group, and Natures          Group. Eayo Company appears to be the highest revenue-generating customer.  
+
 - **Top Cities by Sales:** Orange, Lake Macquarie, Albury, Nowra, and Adelaide are the top-performing cities in terms of sales. Orange leads in sales volume, followed by Lake Macquarie 
+
 - **City & Customer-Level Insights:** The South Australia region, particularly Adelaide, contributes significantly to total sales. Some companies, such as SUPERVALU Ltd and Unit Ltd, maintain high-profit margins despite varying total sales.  
+
 - **Profitability & Margin Analysis:**Profit margins vary, with some companies achieving margins as high as 60% (e.g., Skippad Ltd), while others have lower profitability. There is a mix of high-revenue but low-margin and low-revenue but high-margin customers.  
+
 - **Sales Distribution & Rolling Average:**The total sales graph indicates spikes in sales, but the rolling average (blue line) provides a smoother trend.
 There are several outlier peaks, indicating large sales transactions or promotions during specific periods.
+
 [🔼 Back to Table of Contents](#-table-of-contents)
 
 ---
 
 ## 🏥 Recommendations  
 ✅ Focus on High-Value Customers: Prioritize key customers such as Eayo Company, Holston Company, and Dazzleshape Corp, ensuring continued engagement and loyalty programs.
+
 ✅ Customer Segmentation: Classify customers based on spending patterns and profitability, offering tailored discounts or service enhancements to repeat buyers and high-margin clients.
+
 ✅ Optimize Product Pricing: Adjust pricing strategies for low-margin but high-volume products, ensuring sustainable profits while maintaining competitive pricing.
+
 ✅ Expense Management: Track and analyze company expenses, optimizing budget allocation to maximize ROI.
+
 ✅ Automate Financial Reporting: Utilize Power BI dashboards for real-time monitoring of revenue, expenses, and cash flow, reducing manual reporting efforts.
+
 ✅ Implement Predictive Analytics: Use historical trends to forecast future sales, demand, and potential revenue fluctuations.
+
 ✅ Regularly Monitor Financial Health: Track key financial KPIs such as profit margins, revenue trends, cash flow position, and budget adherence to ensure business stability.
+
 ✅ Sales Strategy Optimization: Replicate successful sales strategies that drove peak performance in February 2021 to maintain consistent growth.
+
 ✅ A/B Testing for Sales Tactics: Test different pricing models, promotional offers, and marketing campaigns to determine the most effective strategies.
 
 [🔼 Back to Table of Contents](#-table-of-contents)
@@ -430,6 +444,9 @@ There are several outlier peaks, indicating large sales transactions or promotio
 
 ## 🚀 Project Impact  
 ✅ Saves time by automating financial analysis
+
 ✅ Improves decision-making with real-time financial data
+
 ✅ Enhances clarity into an organization’s financial health
+
 ✅ Enables effective expense management and profitability tracking
