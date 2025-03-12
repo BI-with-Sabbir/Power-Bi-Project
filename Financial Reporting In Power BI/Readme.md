@@ -12,8 +12,11 @@
 The goal of this project is to develop an interactive financial reporting dashboard using Microsoft Power BI. The dashboard will help organizations analyze, track, and visualize their financial data, enabling them to make data-driven business decisions efficiently.
 
 Real-time Insights: Revenue, expenses, budget, and cash flow tracking.
+
 Customizable Dashboards: Dynamic filters for tailored reports.
+
 Core Reports: Income Statement, Balance Sheet, Cash Flow, Aged Accounts, Turnover Summary.
+
 Accessibility: Web & mobile-friendly for easy access.
 ---
 
