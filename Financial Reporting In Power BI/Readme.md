@@ -1,7 +1,7 @@
 # Power BI Project: Financial Reporting In Power BI
 
 ## 📊 Watch Live Dashboard  
-https://app.powerbi.com/view?r=eyJrIjoiNzRhYjc4MTEtNjVhYi00MWVmLTllODAtNzcxYjYxOGQzOGM1IiwidCI6IjQxYjQ2M2RkLTg1ZWItNGE1NS1iYTZmLTVhMWFjYWMyYjA5YyIsImMiOjEwfQ%3D%3D  </a>
+<p> https://app.powerbi.com/view?r=eyJrIjoiNzRhYjc4MTEtNjVhYi00MWVmLTllODAtNzcxYjYxOGQzOGM1IiwidCI6IjQxYjQ2M2RkLTg1ZWItNGE1NS1iYTZmLTVhMWFjYWMyYjA5YyIsImMiOjEwfQ%3D%3D  </a>
 </p>
 
 ## 📌 Project Overview  
@@ -30,139 +30,40 @@ This dataset consists of multiple tables that are structured to provide insights
 
 The dataset consists of multiple tables, structured to provide insights into financial performance, customer transactions, and business operations.
 
-1. Core Financial Tables
+1. Core Financial Tables:
 
-Income Statement, Closing Date, Items, Value, Balance Sheet Data, Balance Sheet Type, Category
-
-Sub Category
-
-Value
-
-Cash Flow Data
-
-Cash Flow Category
-
-Cash Flow Sub Category
-
-Cash Flow Type
-
-Cash Flow
-
-Company Expenses
-
-Expense Category
-
-Expense Name
-
-Expense Month
-
-Value
+Income Statement, Closing Date, Items, Value, Balance Sheet Data, Balance Sheet Type, Category, Sub Category, Value, Cash Flow Data, Cash Flow Category,Cash Flow Sub Category, Cash Flow Type, Cash Flow, Company Expenses, Expense Category, Expense Name, Expense Month, Value.
 
 2. Transaction & Sales Tables
 
-Invoice
-
-Closing Date
-
-Customer Index
-
-Due Date
-
-Invoice Number
-
-Value
-
-Sales
-
-Outstand
-
-Customer Code
-
-Customer Name Index
-
-Delivery Region Index
-
-Size Total
-
-Order Quantity
-
-Order Number
-
-Product Description Index
+Invoice, Closing Date, Customer Index, Due Date, Invoice Number, Value, Sales, Outstand, Customer Code, Customer Name Index, Delivery Region Index, Size Total, Order Quantity, Order Number, Product Description Index.
 
 3. Supporting Data Tables
 
-Regions
+Regions, City, Country, Full Name, Standard Country Code, Customers, Customer Index, Customer Name, Products, Gross Sales, Product Group, product Group Index
 
-City
+4.Date Table
 
-Country
+Date, Day of Week,Day & Month
 
-Full Name
-
-Standard Country Code
-
-Customers
-
-Customer Index
-
-Customer Name
-
-Products
-
-Gross Sales
-
-Product Group
-
-Product Group Index
-
-Date Table
-
-Date
-
-Day of Week
-
-Day & Month
-
-4. Report & Visualization Templates
+5. Report & Visualization Templates
 
 Income Statement Template
-
 Sources - Normalized
-
 Tax Index
 
-Summary
-
+Summary:
 Balance Sheet Template
-
 Balance Sheet Items
-
 Balance Value Normalized
-
 Cash Flow Template
-
 Cash Flow Item
-
 Cash Flow Normalized
 
-Value
+**Value:
 
-Aged Debtor Groups
+Aged Debtor Groups, Sale Detail, Sale Order, Min & Max, Channel Revenue, Category, Expense Name, Month & Year
 
-Sale Detail
-
-Sale Order
-
-Min & Max
-
-Channel Revenue
-
-Category
-
-Expense Name
-
-Month & Year
 [🔼 Back to Table of Contents](#-table-of-contents)
 
 ---
@@ -170,12 +71,12 @@ Month & Year
 ## 🔄 Data Preprocessing  
 
 ### Steps Taken:  
-1.Enter All Data in Power Query and ETL process started.
-2.Correct Data types are applied in every column.
-3.Create a Parameter Table for All incoming data. 
+1. Enter All Data in Power Query and the ETL process starts.
+2. Correct Data types are applied in every column.
+3. Create a Parameter Table for All incoming data. 
 4.```DAX
-   = (StartDate as date, EndDate as date, FYStartMonth as number) as table =>
-  let
+      = (StartDate as date, EndDate as date, FYStartMonth as number) as table =>
+     let
     DayCount = Duration.Days(Duration.From(EndDate - StartDate)),
     Source = List.Dates(StartDate,DayCount,#duration(1,0,0,0)),
     TableFromList = Table.FromList(Source, Splitter.SplitByNothing()),   
@@ -196,18 +97,21 @@ Month & Year
     InsertWeekNumber= Table.AddColumn(InsertWeekEnding, "Week Number", each Date.WeekOfYear([Date])),
     InsertMonthnYear = Table.AddColumn(InsertWeekNumber,"MonthnYear", each [Year] * 10000 + [MonthOfYear] * 100),
     InsertQuarternYear = Table.AddColumn(InsertMonthnYear,"QuarternYear", each [Year] * 10000 + [QuarterOfYear] * 100),
-    ChangedType1 = Table.TransformColumnTypes(InsertQuarternYear,{{"QuarternYear", Int64.Type},{"Week Number", Int64.Type},{"Year", type text},{"MonthnYear", Int64.Type}, {"DateInt", Int64.Type}, {"DayOfMonth", Int64.Type}, {"MonthOfYear", Int64.Type}, {"QuarterOfYear", Int64.Type}, {"MonthInCalendar", type text}, {"QuarterInCalendar", type text}, {"DayInWeek", Int64.Type}}),
+    ChangedType1 = Table.TransformColumnTypes(InsertQuarternYear,{{"QuarternYear", Int64.Type},{"Week Number", Int64.Type},{"Year", type text},{"MonthnYear", Int64.Type}, 
+    {"DateInt", Int64.Type}, {"DayOfMonth", Int64.Type}, {"MonthOfYear", Int64.Type}, {"QuarterOfYear", Int64.Type}, {"MonthInCalendar", type text}, {"QuarterInCalendar", 
+    type text}, {"DayInWeek", Int64.Type}}),
     InsertShortYear = Table.AddColumn(ChangedType1, "ShortYear", each Text.End(Text.From([Year]), 2), type text),
     AddFY = Table.AddColumn(InsertShortYear, "FY", each "FY"&(if [MonthOfYear]>=FYStartMonth then Text.From(Number.From([ShortYear])+1) else [ShortYear]))
-in
-    AddFY
-```
+     in
+    AddFY```
+
 [🔼 Back to Table of Contents](#-table-of-contents)
 
 ---
 
 ## 📊 Data Modeling  
-![image](https://github.com/user-attachments/assets/3ad5fd4a-8ae8-4220-854e-6d76b3f68ed2)
+![image](https://github.com/user-attachments/assets/46b14e2f-5b6e-4345-b457-1fadd5c5efda)
+
 
 [🔼 Back to Table of Contents](#-table-of-contents)
 
@@ -455,29 +359,36 @@ CALCULATE( [Cash Flow Values],
 
 [🔼 Back to Table of Contents](#-table-of-contents)
 
----
 
 ## 📈 Dashboard & Visualizations  
+
 ### 📌 Income Statement 
-![image](https://github.com/user-attachments/assets/20922186-f26b-4fcf-bbd7-9c99dd63a445)
+![image](https://github.com/user-attachments/assets/a5911a11-987c-40d2-b578-ce0172bc6f84)
+
 
 ### 📌 Finantial Details  
-![image](https://github.com/user-attachments/assets/29156c84-bb36-46c3-8e89-4728180a1614)
+![image](https://github.com/user-attachments/assets/937d0077-8d52-4e6f-9369-5071f686a1d7)
+
 
 ### 📌 Balance Sheet  
-![image](https://github.com/user-attachments/assets/895205d2-a3cc-4ab4-a14d-6cdc831a705c)
+![image](https://github.com/user-attachments/assets/3058ddd9-926d-46f0-9037-810e4d92b346)
+
 
 ### 📌 Cash Flow Statement
-![image](https://github.com/user-attachments/assets/7c4daa8e-40cb-4bec-8601-2f9e4b1fd501)
+![image](https://github.com/user-attachments/assets/16a05cc7-398d-4b7b-80ce-abc0ad56e5fe)
+
 
 ### 📌 Cash FLow
-![image](https://github.com/user-attachments/assets/9306f57b-db42-49ad-b4b3-dfeaeee04e48)
+![image](https://github.com/user-attachments/assets/44c4406b-335d-42cd-9523-13443b90827d)
+
 
 ### 📌 Aged Account  
-![image](https://github.com/user-attachments/assets/5b98b7f0-0a6f-40fd-8ebb-6e9371ad352c)
+![image](https://github.com/user-attachments/assets/0d8661f3-1ad1-4a9d-a142-7717495d83d6)
+
 
 ### 📌 Turnover Summary 
-![image](https://github.com/user-attachments/assets/980a1c14-167e-479a-80d8-be1ff6c63cc7)
+![image](https://github.com/user-attachments/assets/d3844b74-3018-4085-b6a3-6b0fa68dd66c)
+
 
 [🔼 Back to Table of Contents](#-table-of-contents)
 
@@ -485,10 +396,10 @@ CALCULATE( [Cash Flow Values],
 
 ## 📊 Key Findings  
 - **Sales Trend Over Time:** Total sales show fluctuations over time, with notable peaks around Feb 2021..  
-- **Top Performing Customers:** The top 5 customers by total sales include Eayo Company, Holston Company, Dazzleshape Corp, Skyvu Group, and Natures          Group.Eayo Company appears to be the highest revenue-generating customer.  
+- **Top Performing Customers:** The top 5 customers by total sales include Eayo Company, Holston Company, Dazzleshape Corp, Skyvu Group, and Natures          Group. Eayo Company appears to be the highest revenue-generating customer.  
 - **Top Cities by Sales:** Orange, Lake Macquarie, Albury, Nowra, and Adelaide are the top-performing cities in terms of sales. Orange leads in sales volume, followed by Lake Macquarie 
-- **City & Customer-Level Insights:** The South Australia region, particularly Adelaide, contributes significantly to total sales. Some companies, such as SUPERVALU Ltd and Unit Ltd, maintain high profit margins despite varying total sales.  
-- **Profitability & Margin Analysis:**Profit margins vary, with some companies achieving margins as high as 60% (e.g., Skippad Ltd), while others have lower profitability.There is a mix of high-revenue but low-margin and low-revenue but high-margin customers.  
+- **City & Customer-Level Insights:** The South Australia region, particularly Adelaide, contributes significantly to total sales. Some companies, such as SUPERVALU Ltd and Unit Ltd, maintain high-profit margins despite varying total sales.  
+- **Profitability & Margin Analysis:**Profit margins vary, with some companies achieving margins as high as 60% (e.g., Skippad Ltd), while others have lower profitability. There is a mix of high-revenue but low-margin and low-revenue but high-margin customers.  
 - **Sales Distribution & Rolling Average:**The total sales graph indicates spikes in sales, but the rolling average (blue line) provides a smoother trend.
 There are several outlier peaks, indicating large sales transactions or promotions during specific periods.
 [🔼 Back to Table of Contents](#-table-of-contents)
