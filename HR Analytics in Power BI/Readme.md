@@ -290,29 +290,70 @@ Employee Multirow Details =
 ---
 
 ## 📊 Key Findings  
-- **Transaction Volume:** 22.0bn – Strong financial activity.  
-- **Transaction Success Rate:** 88.5% – Needs improvement in failed transactions.  
-- **Top Channel:** Mobile App (42.36%) – Digital adoption is high.  
-- **Cash In Dominance:** 7.2bn – Large amounts being deposited into accounts.  
-- **Geographical Trends:** Dhaka leads in fintech adoption.  
+- **Overall Employee Statistics:**
+
+✔ Total Employees: 1,471
+✔ Active Employees: 1,233
+✔ Inactive Employees: 237  
+✔ Attrition Rate: 16.1% 
+
+- **Employee Attrition Distribution by Department:** 
+✔ Sales & Marketing has the highest attrition (310 left, 72 stayed).
+✔ Production follows closely (286 left, 64 stayed).
+✔ Transport has the lowest attrition (90 left, 21 stayed).
+
+- **Employee Hiring Trends:** 
+✔ Hiring has been fluctuating over the years.
+✔ A noticeable decline occurred in 2016 and 2020.
+✔ The latest hiring data (2022) shows 130 retained employees and 25 left.
+
+- **OPEX and CAPEX Trends:**
+✔ Operational Expenditure (OpEx) shows a declining trend from 2013 to around 2018, then starts rising again post-2020.
+✔ Capital Expenditure (CapEx) follows a fluctuating trend but starts increasing significantly after 2020.
+
+- **Attrition by Tenure, Salary & Age:**
+✔ Tenure: Employees with 1-2 years of experience have the highest attrition rates (31.6%–34.5%).
+✔ Tenure attrition decreases as experience increases, reaching 0.8% for employees with 10 years of tenure. 
+
 
 [🔼 Back to Table of Contents](#-table-of-contents)
 
 ---
 
 ## 🏥 Recommendations  
-✔ Expand agent networks in underserved regions.  
-✔ Increase female customer engagement through financial inclusion campaigns.  
-✔ Enhance digital service usage with promotions.  
-✔ Optimize failed transactions for better user experience.  
+✔ High Attrition in Sales & Marketing and Production: Possible causes could be job stress, lack of career growth, or poor job satisfaction. Employee engagement strategies, better incentives, or workload management could help.
+✔ New Employees Leaving Quickly: The highest attrition rate is among employees with 1-2 years of tenure, suggesting issues with onboarding, job expectations, or career progression. 
+✔ Hiring Trends: Despite ongoing hiring, attrition remains high, suggesting a need to focus on retention strategies rather than just recruitment.  
+✔ Financial Expenditure: OpEx saw a decline but is rising again post-2020, possibly indicating increased investment in employee-related expenses or operational improvements.
 
 [🔼 Back to Table of Contents](#-table-of-contents)
 
 ---
 
 ## 🚀 Project Impact  
-✔ Optimized failed transactions.  
-✔ Targeted regional fintech growth.  
-✔ Promoted digital spending.  
-✔ Leveraged seasonal transaction trends for business insights.  
+✔ Better Decision-Making:
+
+1. Provides HR teams and management with data-driven insights into employee attrition, hiring trends, and financial expenditures.
+2. Helps identify departments with high turnover rates (e.g., Sales & Marketing, Production), allowing for targeted retention strategies.
+
+✔ Cost Optimization:
+
+1. Analyzing OpEx and CapEx trends enables businesses to optimize operational expenses and forecast future spending needs.
+2. Reducing high turnover can lead to lower recruitment and training costs.
+   
+✔ Employee Retention & Engagement:
+
+1. Insights into why employees leave (tenure-based attrition analysis) help HR implement better retention strategies.
+2. Addressing concerns for employees in their first two years can significantly improve retention rates.
+   
+✔Improved Workforce Planning:
+
+1. Forecasting hiring trends and attrition rates enables companies to plan recruitment efforts proactively rather than reactively.
+2. Ensures critical roles remain filled, reducing operational disruptions.
+
+## Business Benefits:
+✅ Reduced Employee Turnover → Lower hiring costs and improved stability.
+✅ Data-Backed HR Strategies → Align workforce planning with company goals.
+✅ Financial Savings → Optimized OpEx and CapEx management.
+✅ Higher Employee Satisfaction → Improved engagement and retention.
 
