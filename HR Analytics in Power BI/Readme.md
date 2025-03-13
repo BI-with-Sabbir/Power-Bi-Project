@@ -54,34 +54,41 @@ The Project interface for HR Analytics highlights various analytical features po
 - **Sort Transactions:** Arrange by Date in ascending order.  
 - **Standardize Data Types:** Convert ID fields to text.  
 - **Fill Missing Data:** Replace null values with default values.  
-- **Parameter Create:** 1.Did not Met Expectation & Emerging Potential = GENERATESERIES(0, 0.25, 0.01)
-                        2.Did not Met Expectation & High Potential = GENERATESERIES(0, 0.25, 0.01)
-                        3.Did not Met Expectation & Low Potential = GENERATESERIES(0, 0.25, 0.01)
-                        4.Create_Dim_Data table Using Dax Formula.
-                        5.Exceeded Expectations & Emerging Potential = GENERATESERIES(0, 0.25, 0.01)
-                        6.Exceeded Expectations & High Potential = GENERATESERIES(0, 0.25, 0.01)
-                        7.Exceeded Expectations & Low Potential = GENERATESERIES(0, 0.25, 0.01)
-                        8.Met Expectations & Emerging Potential = GENERATESERIES(0, 0.25, 0.01)
-                        9.Met Expectations & High Potential = GENERATESERIES(0, 0.25, 0.01)
-                       10. Salary and Tenure measure: SALARY & TENURE = {
-                                                                   ("TENURE", NAMEOF('DimEmployee'[YearsAtCompany]), 0),
-                                                                   ("SALARY", NAMEOF('DimEmployee'[Salary Bin]), 1),
-                                                                   ("AGE", NAMEOF('DimEmployee'[AgeBins]), 2)
-                                                                    }
-#### **Dim Date Table Preprocessing:**  
-- Define Date Range from MinOrderDate to MaxOrderDate.  
-- Generate a continuous date list.  
-- Extract Date Components (Year, Month, Quarter, Start of Month).  
-- Format Date Information (Short Month Names, Quarter Formatting).  
-- Classify Days as Weekend or Weekday.  
-- Sort by Date.  
+- **Parameter Create:** 
+1.Did not Met Expectation & Emerging Potential = GENERATESERIES(0, 0.25, 0.01)
+
+2.Did not Met Expectation & High Potential = GENERATESERIES(0, 0.25, 0.01)
+
+3.Did not Met Expectation & Low Potential = GENERATESERIES(0, 0.25, 0.01)
+                       
+ 4.Create_Dim_Data table Using Dax Formula.
+                       
+ 5.Exceeded Expectations & Emerging Potential = GENERATESERIES(0, 0.25, 0.01)
+                        
+6.Exceeded Expectations & High Potential = GENERATESERIES(0, 0.25, 0.01)
+                        
+7.Exceeded Expectations & Low Potential = GENERATESERIES(0, 0.25, 0.01)
+                        
+8.Met Expectations & Emerging Potential = GENERATESERIES(0, 0.25, 0.01)
+                       
+ 9.Met Expectations & High Potential = GENERATESERIES(0, 0.25, 0.01)
+                      
+ 10. Salary and Tenure measure:
+```DAX
+      SALARY & TENURE = {
+      ("TENURE", NAMEOF('DimEmployee'[YearsAtCompany]), 0),
+      ("SALARY", NAMEOF('DimEmployee'[Salary Bin]), 1),
+      ("AGE", NAMEOF('DimEmployee'[AgeBins]), 2)
+       }
+```
 
 [🔼 Back to Table of Contents](#-table-of-contents)
 
 ---
 
 ## 📊 Data Modeling  
-![image](https://github.com/user-attachments/assets/c638bf4a-db61-425e-bee7-69e0ccd044a0)
+![image](https://github.com/user-attachments/assets/5925ea14-2317-4edc-a215-fb669bbebf63)
+
 
 [🔼 Back to Table of Contents](#-table-of-contents)
 
@@ -90,51 +97,193 @@ The Project interface for HR Analytics highlights various analytical features po
 ## 🧮 DAX Measures  
 ### General Measures  
 ```DAX
-Transaction Volume by agents = 
-SUMX(
-    FILTER(Transaction_Fact, Transaction_Fact[Channel] = "Agent"),
-    RELATED(Revenue_Table[Revenue_Amount])
+% Attrition Rate = DIVIDE([InactiveEmployees], [TotalEmployees])
 )
 ```
 ```DAX
-Total Transactions by Agents = 
-CALCULATE(
-    COUNT(Transaction_Fact[Transaction_ID]),
-    Transaction_Fact[Channel] = "Agent"
+% Attrition Rate Date = DIVIDE([InactiveEmployeesDate], [TotalEmployeesDate])
+```
+```DAX
+2 Dynamic Variance % = 
+//this data is static, so we get the latest values by getting the max in the data table. Date tables are really useful for their "relative" columns to keep things dynamic - this calculation would auto-update as time passed if fresh data was coming in.
+//WEEK
+
+var formattedWeekAttr = IF([2 WOW % Attrition rate] < 1, "▼ " & FORMAT([2 WOW % Attrition rate] * -1, "0.00%"), "▲" & FORMAT([2 WOW % Attrition rate], "0.0%")) & " vs previous week"
+
+//MONTH
+
+var formattedMonthAttr = IF([2 MOM % Attrition rate] < 1, "▼ " & FORMAT([2 MOM % Attrition rate] * -1, "0.00%"), "▲" & FORMAT([2 MOM % Attrition rate], "0.0%")) & " vs previous month"
+
+//QUARTER
+
+var formattedQuarterAttr = IF([2 QOQ % Attrition rate] < 1, "▼ " & FORMAT([2 QOQ % Attrition rate] * -1, "0.00%"), "▲" & FORMAT([2 QOQ % Attrition rate], "0.0%")) & " vs previous quarter"
+
+//YEAR
+
+var formattedYearAttr = IF([2 YOY % Attrition rate]< 1, "▼ " & FORMAT([2 YOY % Attrition rate] * -1, "0.00%"), "▲" & FORMAT([2 YOY % Attrition rate], "0.00%")) & " vs previous year"
+
+
+return SWITCH(
+        TRUE(),
+            SELECTEDVALUE('DATE'[DATE  Order]) = 0, formattedWeekAttr,  //0 is the first field parameter row, for some reason it will give an error when trying to use the text W/M/Q/Y column instead
+            SELECTEDVALUE('DATE'[DATE  Order]) = 1, formattedMonthAttr,
+            SELECTEDVALUE('DATE'[DATE  Order]) = 2, formattedQuarterAttr,
+            SELECTEDVALUE('DATE'[DATE  Order]) = 3, formattedYearAttr,
+            BLANK()
 )
 ```
 ```DAX
-Total transaction volume = SUMX('Transaction_fact', RELATED('Revenue_table'[Revenue_Amount]))
+3 Dynamic Variance % = 
+//this data is static, so we get the latest values by getting the max in the data table. Date tables are really useful for their "relative" columns to keep things dynamic - this calculation would auto-update as time passed if fresh data was coming in.
+//WEEK
+var latestWeek = CALCULATE(MAX('DIMDate'[WeekRelative]), 'DIMDate'[Date] = MAX(DimEmployee[HireDate]))
+var priorWeekAttr = CALCULATE([% Attrition Rate Date], 'DIMDate'[WeekRelative] = latestWeek - 7)
+var latestWeekAttr = CALCULATE([% Attrition Rate Date], 'DIMDate'[WeekRelative] = latestWeek)
+var weekAttrChange = DIVIDE(latestWeekAttr - priorWeekAttr, priorWeekAttr)
+var formattedWeekAttr = IF(weekAttrChange < 1, "▼ " & FORMAT(weekAttrChange * -1, "0.00%"), "▲" & FORMAT(weekAttrChange, "0.00%")) & " vs previous week"
+
+//MONTH
+var latestMonth = CALCULATE(MAX('DimDate'[MonthRelative]), 'DIMDate'[Date] = MAX(DimEmployee[HireDate]))
+var priorMonthAttr = CALCULATE([% Attrition Rate Date], 'DimDate'[MonthRelative] = latestMonth - 1)
+var latestMonthAttr = CALCULATE([% Attrition Rate Date], 'DimDate'[MonthRelative] = latestMonth)
+var monthAttrChange = DIVIDE(latestMonthAttr - priorMonthAttr, priorMonthAttr)
+var formattedMonthAttr = IF(monthAttrChange < 1, "▼ " & FORMAT(monthAttrChange * -1, "0.00%"), "▲" & FORMAT(monthAttrChange, "0.00%")) & " vs previous month"
+
+//QUARTER
+var latestQuarter = CALCULATE(MAX('DimDate'[QuarterRelative]), 'DIMDate'[Date] = MAX(DimEmployee[HireDate]))
+var priorQuarterAttr = CALCULATE([% Attrition Rate Date], 'DimDate'[QuarterRelative] = latestQuarter - 1)
+var latestQuarterAttr = CALCULATE([% Attrition Rate Date], 'DimDate'[QuarterRelative] = latestQuarter)
+var quarterAttrChange = DIVIDE(latestQuarterAttr - priorQuarterAttr, priorQuarterAttr)
+var formattedQuarterAttr = IF(quarterAttrChange < 1, "▼ " & FORMAT(quarterAttrChange * -1, "0.00%"), "▲" & FORMAT(quarterAttrChange, "0.00%")) & " vs previous quarter"
+
+//YEAR
+var latestYear = CALCULATE(MAX('DimDate'[YearRelative]), 'DIMDate'[Date] = MAX(DimEmployee[HireDate]))
+var priorYearAttr = CALCULATE([% Attrition Rate Date], 'DimDate'[YearRelative] = latestYear - 1)
+var latestYearAttr = CALCULATE([% Attrition Rate Date], 'DimDate'[YearRelative] = latestYear)
+var yearAttrChange = DIVIDE(latestYearAttr - priorYearAttr, priorYearAttr)
+var formattedYearAttr = IF(yearAttrChange < 1, "▼ " & FORMAT(yearAttrChange * -1, "0.00%"), "▲" & FORMAT(yearAttrChange, "0.00%")) & " vs previous year"
+
+
+return SWITCH(
+        TRUE(),
+            SELECTEDVALUE('DATE'[DATE  Order]) = 0, formattedWeekAttr,  //0 is the first field parameter row, for some reason it will give an error when trying to use the text W/M/Q/Y column instead
+            SELECTEDVALUE('DATE'[DATE  Order]) = 1, formattedMonthAttr,
+            SELECTEDVALUE('DATE'[DATE  Order]) = 2, formattedQuarterAttr,
+            SELECTEDVALUE('DATE'[DATE  Order]) = 3, formattedYearAttr,
+            BLANK()
+)
 ```
 ```DAX
-Total Transaction = DISTINCTCOUNT(Transaction_fact[Transaction_ID])
+4 Dynamic Variance % = 
+
+// WEEK
+
+
+// MONTH
+var latestMonth = CALCULATE(MAX('DimDate'[MonthRelative]), 'DimDate'[Date] = MAX(DimEmployee[HireDate]))
+var priorMonthAttr = CALCULATE([% Attrition Rate Date], 'DimDate'[MonthRelative] = latestMonth - 1)
+var latestMonthAttr = CALCULATE([% Attrition Rate Date], 'DimDate'[MonthRelative] = latestMonth)
+var monthAttrChange = DIVIDE(latestMonthAttr - priorMonthAttr, priorMonthAttr)
+var formattedMonthAttr = IF(monthAttrChange < 0, "▼ " & FORMAT(ABS(monthAttrChange), "0.00%"), "▲ " & FORMAT(monthAttrChange, "0.00%")) & " vs previous month"
+
+// QUARTER
+var latestQuarter = CALCULATE(MAX('DimDate'[QuarterRelative]), 'DimDate'[Date] = MAX(DimEmployee[HireDate]))
+var priorQuarterAttr = CALCULATE([% Attrition Rate Date], 'DimDate'[QuarterRelative] = latestQuarter - 1)
+var latestQuarterAttr = CALCULATE([% Attrition Rate Date], 'DimDate'[QuarterRelative] = latestQuarter)
+var quarterAttrChange = DIVIDE(latestQuarterAttr - priorQuarterAttr, priorQuarterAttr)
+var formattedQuarterAttr = IF(quarterAttrChange < 0, "▼ " & FORMAT(ABS(quarterAttrChange), "0.00%"), "▲ " & FORMAT(quarterAttrChange, "0.00%")) & " vs previous quarter"
+
+// YEAR
+var latestYear = CALCULATE(MAX('DimDate'[YearRelative]), 'DimDate'[Date] = MAX(DimEmployee[HireDate]))
+var priorYearAttr = CALCULATE([% Attrition Rate Date], 'DimDate'[YearRelative] = latestYear - 1)
+var latestYearAttr = CALCULATE([% Attrition Rate Date], 'DimDate'[YearRelative] = latestYear)
+var yearAttrChange = DIVIDE(latestYearAttr - priorYearAttr, priorYearAttr)
+var formattedYearAttr = IF(yearAttrChange < 0, "▼ " & FORMAT(ABS(yearAttrChange), "0.00%"), "▲ " & FORMAT(yearAttrChange, "0.00%")) & " vs previous year"
+
+// FINAL RETURN
+return SWITCH(
+        TRUE(),
+             // Use the field parameter value for switching
+            SELECTEDVALUE('DATE'[DATE  Order]) = 0, formattedMonthAttr,
+            SELECTEDVALUE('DATE'[DATE  Order]) = 1, formattedQuarterAttr,
+            SELECTEDVALUE('DATE'[DATE  Order]) = 2, formattedYearAttr,
+            BLANK()
+)
+
 ```
 ```DAX
-Success Rate = 
-DIVIDE(
-    COUNTROWS(
-        FILTER(
-            'Transaction_fact',
-            'Transaction_fact'[Transaction_Status] = "Successful"
-        )
-    ),
-    COUNTROWS('Transaction_fact'),
-    0
-) 
+WorkLifeBalance = 
+CALCULATE (
+    MAX ( FactPerformanceRating[WorkLifeBalance] ),
+    USERELATIONSHIP ( FactPerformanceRating[WorkLifeBalance], DimSatisfiedLevel[SatisfactionID] )
+)
+```
+```DAX
+TotalTrainingCost = SUM(DimEmployee[TrainingCost])
+```
+```DAX
+LastReviewDate = 
+IF (
+    MAX ( FactPerformanceRating[ReviewDate] ) = BLANK (),
+    "No Review Yet",
+    MAX ( FactPerformanceRating[ReviewDate] )
+)
+)
+```
+```DAX
+EnvironmentSatisfaction = 
+CALCULATE (
+    MAX ( FactPerformanceRating[EnvironmentSatisfaction] ),
+    USERELATIONSHIP ( FactPerformanceRating[EnvironmentSatisfaction], DimSatisfiedLevel[SatisfactionID] )
+)
+```
+```DAX
+Employee Multirow Details = 
+
+"Attrition date: " & FORMAT(CALCULATE(MIN('DimEmployee'[HireDate]),DimEmployee[Attrition] = "Yes"), "DD MMM, YYYY") & UNICHAR(10) &
+"Avg. Satisfaction Score: " &ROUND(AVERAGE('FactPerformanceRatingUnpivot'[Satisfaction Score]), 2) & UNICHAR(10) & 
+"Performance Rating: " & MIN(FactPerformanceRating[ManagerRating]) & UNICHAR(10) &
+"Monthly Income: " & MIN(DimEmployee[Salary]) & UNICHAR(10) &
+"Education Level: " & MIN(DimEducationLevel[EducationLevel]) & UNICHAR(10) &
+"Total Stay: " & MIN(Salary[YearsAtCompany]) & UNICHAR(10) 
+ // "Salary Hike: " & MIN('HR Attrition'[Percent Salary Hike]) & UNICHAR(10)
+)
 ```
 [🔼 Back to Table of Contents](#-table-of-contents)
 
 ---
 
 ## 📈 Dashboard & Visualizations  
-### 📌 Business Performance  
-![image](https://github.com/user-attachments/assets/024f48b4-3b58-498b-8ff9-20346a6aade1)
+### 📌OVERVIEW Of Dashboard
+![image](https://github.com/user-attachments/assets/23f30c14-470b-4d35-ab4a-bc52f2dbe53b)
 
-### 📌 Agent Network Optimization  
-![image](https://github.com/user-attachments/assets/c795d3e1-f843-4f42-8f04-3b4f725eac1e)
 
-### 📌 Customer Insights  
-![image](https://github.com/user-attachments/assets/880becc0-048f-41bb-a9a7-372f6c0bba79)
+### 📌 DEMOGRAPHICS Analysis 
+![image](https://github.com/user-attachments/assets/b9ffcff1-965f-4e81-b643-7943ef29059e)
+
+
+### 📌 9 BOX  GRID
+![image](https://github.com/user-attachments/assets/20a58151-8fe6-40a3-9b52-ff478bb6107c)
+
+### 📌 Incriment 
+![image](https://github.com/user-attachments/assets/df015de8-17d6-4c7f-9ba0-f7c17582af45)
+
+
+### 📌 Admin Page 
+![image](https://github.com/user-attachments/assets/c70e375c-4c9c-46ec-8906-fa3bbc556f13)
+
+
+### 📌 Attrition
+![image](https://github.com/user-attachments/assets/c17b619d-623c-4665-897d-2d1a0bd0d4a6)
+
+
+### 📌 Satisfaction
+![image](https://github.com/user-attachments/assets/5d030622-25b5-42fd-a955-e7c23356841b)
+
+### 📌 Leave
+![image](https://github.com/user-attachments/assets/bad4d9d4-f8f6-46b0-9ef6-4dc62a66fa53)
+
+
 
 [🔼 Back to Table of Contents](#-table-of-contents)
 
