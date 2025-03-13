@@ -1,15 +1,15 @@
-# Power BI Project: FINTECH Performance Tracking Dashboard
+# Power BI Project: HR Analytics In Power BI
 
 ## 📊 Watch Live Dashboard  
 <p align="center">
-  <a href="https://app.powerbi.com/view?r=eyJrIjoiNmZjNTA5YjEtN2JmMy00NmM4LWE2ZTgtZThlNWU4ZjViMjRiIiwidCI6IjQxYjQ2M2RkLTg1ZWItNGE1NS1iYTZmLTVhMWFjYWMyYjA5YyIsImMiOjEwfQ%3D%3D" target="_blank">
+  <a href="https://app.powerbi.com/view?r=eyJrIjoiYzMyNTIzYTMtOTgyYy00YmE1LWIxNDktYTI1ZTkyMDcxYmIyIiwidCI6IjQxYjQ2M2RkLTg1ZWItNGE1NS1iYTZmLTVhMWFjYWMyYjA5YyIsImMiOjEwfQ%3D%3D" target="_blank">
     <img src="https://img.shields.io/badge/Click%20Here-Power%20BI-blue?style=for-the-badge" alt="View Dashboard">
   </a>
 </p>
 
-## 📌 Project Overview  
-This Fintech Performance Dashboard is designed to provide a comprehensive view of your organization's operational health and growth potential. Tailored for leaders and decision-makers, the dashboard delivers actionable insights into critical areas, helping you achieve efficiency, transparency, and excellence.
 
+## 📌 Project Overview  
+The Project interface for HR Analytics highlights various analytical features powered by Microsoft Power BI. It emphasizes customizable dashboards, real-time monitoring, and data-driven decision-making in HR management.
 ---
 
 ## 📖 Table of Contents  
@@ -27,14 +27,16 @@ This Fintech Performance Dashboard is designed to provide a comprehensive view o
 ## 📂 Dataset Details  
 
 ### Columns in the Dataset:  
-- **Category_Table:** Category_ID, Category_Name  
-- **Complaint_Table:** Complaint_ID, Complaint_Type, Customer_ID, Resolution Min, Resolution_Date, Resolution_Status  
-- **Revenue_Table:** Revenue_Amount, Revenue_ID, Source_of_Revenue  
-- **Customer_Table:** Age, Age_Group, Customer_ID, Gender, Location, Name, Other_Demographics  
-- **Dim_Date:** Date, Day Name, Day Type, Month, Month Name, Quarter, Start of Month, Year  
-- **Merchant_Table:** Business_Type, Merchant_ID, Merchant_Location, Merchant_Name, Total_Transactions  
-- **Agent_Table:** Active_Status, Agent_ID, Agent_Name, Incentive_Plan, Location, Number_of_Transactions, Total_Revenue_Generated  
-- **Transaction_Fact:** Agent_ID, Category_ID, Channel, Customer_ID, Gender, Location, Merchant_ID, Revenue_ID, Transaction_Date, Transaction_ID  
+- **Fact_Performance_Table:** Performance_ID, Employee_ID, Review_Date, Environment_Satisfaction, Job_Satisfaction, Relationship_Satisfaction, 
+                              Training_Opportunities_Within_Year,   Training_Opportunities_Taken, Work_LifeBalance, Self_Rating, ManagerRating, 
+- **Fact_Performance_Rating_upvote:** Performance_ID, Employee_ID, Review_Date, Satisfaction Type, Satisfaction Score, Training_Opportunities_WithinYear, 
+                              TrainingOpportunitiesTaken
+- **Salary:** EmployeeID, FirstName, LastName, Gender, Age, BusinessTravel, Department, DistanceFromHome (KM), State, Ethnicity, Education, EducationField, JobRole, 
+                           MaritalStatus, Salary, StockOptionLevel, OverTime, HireDate, Attrition, YearsAtCompany, YearsInMostRecentRole, YearsSinceLastPromotion, 
+                           YearsWithCurrManager, AgeBins, Salary Bin. 
+- **Dim_Education_Level:** EducationLevel_ID, EducationLevel.
+- **CapexComponents:** Component, Amount, Department.
+- **LeaveRecords:** EmployeeLeave, Leave_Start_Date, Leave_End_Date, Leave_Type, Leave_Duration  
 
 [🔼 Back to Table of Contents](#-table-of-contents)
 
@@ -49,12 +51,23 @@ This Fintech Performance Dashboard is designed to provide a comprehensive view o
 - **Remove Errors:** Eliminate rows with errors in Transaction_ID.  
 - **Drop Unnecessary Columns:** Remove unused columns.  
 - **Replace Null Values:** Fill missing values in Agent_ID and Merchant_ID with "Not found".  
-- **Sort Transactions:** Arrange by Transaction_Date in ascending order.  
+- **Sort Transactions:** Arrange by Date in ascending order.  
 - **Standardize Data Types:** Convert ID fields to text.  
-- **Add Index Column:** Create an index starting from 489434.  
-- **Join with Customer Table:** Merge to bring Location and Gender.  
 - **Fill Missing Data:** Replace null values with default values.  
-
+- **Parameter Create:** 1.Did not Met Expectation & Emerging Potential = GENERATESERIES(0, 0.25, 0.01)
+                        2.Did not Met Expectation & High Potential = GENERATESERIES(0, 0.25, 0.01)
+                        3.Did not Met Expectation & Low Potential = GENERATESERIES(0, 0.25, 0.01)
+                        4.Create_Dim_Data table Using Dax Formula.
+                        5.Exceeded Expectations & Emerging Potential = GENERATESERIES(0, 0.25, 0.01)
+                        6.Exceeded Expectations & High Potential = GENERATESERIES(0, 0.25, 0.01)
+                        7.Exceeded Expectations & Low Potential = GENERATESERIES(0, 0.25, 0.01)
+                        8.Met Expectations & Emerging Potential = GENERATESERIES(0, 0.25, 0.01)
+                        9.Met Expectations & High Potential = GENERATESERIES(0, 0.25, 0.01)
+                       10. Salary and Tenure measure: SALARY & TENURE = {
+                                                                   ("TENURE", NAMEOF('DimEmployee'[YearsAtCompany]), 0),
+                                                                   ("SALARY", NAMEOF('DimEmployee'[Salary Bin]), 1),
+                                                                   ("AGE", NAMEOF('DimEmployee'[AgeBins]), 2)
+                                                                    }
 #### **Dim Date Table Preprocessing:**  
 - Define Date Range from MinOrderDate to MaxOrderDate.  
 - Generate a continuous date list.  
