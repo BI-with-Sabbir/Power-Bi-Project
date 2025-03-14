@@ -185,13 +185,16 @@ Churned Rate = [Churned Customer] / [New Customer]
 ## Dashboard and Visualization
 
 ### Customers by Cohort and Months after First Purchase
-![image](https://github.com/user-attachments/assets/fae91010-329b-4a17-9425-1f2df00ddbbf)
+![image](https://github.com/user-attachments/assets/8a7ea4d0-b23f-4a93-993f-32bb4f240254)
+
 
 ### Churned Customer Trend Analysis
-![image](https://github.com/user-attachments/assets/46199aa7-25bf-4b3f-bd2f-d928e779e9c4)
+![image](https://github.com/user-attachments/assets/14b01f8b-4efd-4588-839b-7a70e5bdb63e)
+
 
 ### Lost Customer and Recovered Customer Analysis
-![image](https://github.com/user-attachments/assets/c865aaa1-d53d-4199-8a35-5a4b55cb7d26)
+![image](https://github.com/user-attachments/assets/b009c71c-a9df-418a-89ca-04e107086f51)
+
 
 [🔼 Back to Table of Contents](#table-of-contents)
 
