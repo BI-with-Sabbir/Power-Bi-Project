@@ -27,33 +27,24 @@ The project overview highlights the Healthcare Analytics BI solution, which help
 ## 📂 Dataset Details  
 
 ### Columns in the Dataset:  
-- `health_service_area`  
-- `hospital_county`  
-- `operating_certificate_number`  
-- `facility_id`  
-- `facility_name`  
-- `age_group`  
-- `zip_code_3_digits`  
-- `gender`  
-- `race`  
-- `ethnicity`  
-- `length_of_stay`  
-- `type_of_admission`  
-- `patient_disposition`  
-- `discharge_year`  
-- `ccs_diagnosis_code`  
-- `ccs_diagnosis_description`  
-- `ccs_procedure_code`  
-- `ccs_procedure_description`  
-- `apr_drg_code`  
-- `apr_drg_description`  
-- `apr_mdc_code`  
-- `apr_mdc_description`  
-- `apr_severity_of_illness_code`  
-- `apr_severity_of_illness_description`  
-- `apr_risk_of_mortality`  
-- `total_charges`  
-- `total_costs`  
+- **Hospital_Doctor_Table:** Doctor_ID, Specialization, Fees, Full Name, Monthly Salary, Facility ID.
+                              
+- **Hospital_Facility_Table:** Facility ID, Facility Name, Division, Total Beds, Region, System, Open Date, Contact Information, Toatl ICU Beds, Total Ventilators, Dengue 
+                              Unit, DU, ED, GW, ICU, MW, NICU, OPD, SU, Facility Rent Fee.
+                              TrainingOpportunitiesTaken
+
+- **Salary:** EmployeeID, FirstName, LastName, Gender, Age, BusinessTravel, Department, DistanceFromHome (KM), State, Ethnicity, Education, EducationField, JobRole, 
+                           MaritalStatus, Salary, StockOptionLevel, OverTime, HireDate, Attrition, YearsAtCompany, YearsInMostRecentRole, YearsSinceLastPromotion, 
+                           YearsWithCurrManager, AgeBins, Salary Bin. 
+
+- **Hospital_Nurse_Table:** Nurse_ID, First_Name, Last_Name, Department, Monthly Salary,Facility ID.
+
+- **Hospital_Patient Details:** Patient ID, Date_of_Birth, Full Name, Gender, Visit Date, Admission Date, Discharge Date, Facility_ID, Unit Type, Unit_Type_Short_name, Bed 
+                            Type, Type of Visit, Doc_ID, Nurse_ID, Blood Required, Blood Group, Dengue Status, Care Type, Gen, Age, Age Group, Length of Stay, Treatment 
+                            Cost, Wait Time, Admission/Readmission.
+
+- **Patient_Satisfactioon_Category:** Negative\Positive, Satisfaction, Satisfaction Name, Status, Star Retting.  
+
 
 [🔼 Back to Table of Contents](#-table-of-contents)
 
