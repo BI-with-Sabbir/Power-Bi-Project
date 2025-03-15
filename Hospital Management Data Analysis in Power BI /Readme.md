@@ -43,7 +43,15 @@ The project overview highlights the Healthcare Analytics BI solution, which help
                             Type, Type of Visit, Doc_ID, Nurse_ID, Blood Required, Blood Group, Dengue Status, Care Type, Gen, Age, Age Group, Length of Stay, Treatment 
                             Cost, Wait Time, Admission/Readmission.
 
-- **Patient_Satisfactioon_Category:** Negative\Positive, Satisfaction, Satisfaction Name, Status, Star Retting.  
+- **Patient_Satisfactioon_Category:** Negative\Positive, Satisfaction, Satisfaction Name, Status, Star Retting.
+   
+- **Medical_equipment_supply:** Facility_ID, Item_ID, Item_Name, Total, In Use, Available, Supply_date.
+ 
+- **Patient_Survey:** Pat_id, Survey Date, Facility Id, Date of Bith, Questions No, Score, Supply_date.
+
+ - **Survey_Questation:** Negative\Positive, Satisfaction, Satisfaction Name, Status, Star Retting.
+
+ -  **Patient_TreatmentCost:** Negative\Positive, Satisfaction, Satisfaction Name, Status, Star Retting.  
 
 
 [🔼 Back to Table of Contents](#-table-of-contents)
