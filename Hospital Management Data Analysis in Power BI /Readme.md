@@ -395,29 +395,51 @@ IF (_Growth <> 0,
 
 ## 📊 Key Findings  
 
-### 🔹 LOS (Length of Stay) Analysis  
-- **Top 3 Hospitals with Highest LOS:**  
-  - Strong Memorial Hospital – 4.86 days  
-  - Corning Hospital – 3.13 days  
-  - Geneva General Hospital – 3.08 days  
+### Patient Information
+-80 Census Patients (Currently admitted patients)
+-266 Total Dengue Patients
+-3,498 Total Unique Patients
 
-**Insights:**  
-- Strong Memorial Hospital has the highest average LOS, which may indicate more complex cases or inefficiencies.  
-- The Unity Hospital of Rochester has the lowest LOS, possibly reflecting higher efficiency in patient turnover.  
+###  Supply Information
+- Critical Supplies:
+- Oxygen: 80K available, 39.7% in use
+- IV Bags: 78K available, 45.1% in use
+- Needles: 5K available, 39.4% in use (very low stock)
+- Other supplies like Diagnostic Kits, Tubes, Gloves, Masks, and Bandages have 30%+ usage.
+- 
+###  Treatment Cost
+- Total Treatment Cost: 807K
+-Monthly Change: -12.7K (-1.5%) compared to the previous month (819.4K).
+-Daily cost trend shows fluctuations with a slight downward trend.
 
+###  Bed Management
+- 415 Total Beds
+- 80 Beds in Use (19% Occupancy Rate)
+- Dhaka South Hospital has 16% occupancy, while Nagar Hospital has 19% occupancy.
+- 
+###  Equipment Information
+- 75 Total ICU Beds.
+- 43 Ventilators.
+- 67 ICU Beds in Use (High ICU occupancy).
+- 
+###  Staffing Information
+- 20 Total Doctors
+- 25 Total Nurses
+- 7.2% Nurse to Patient Ratio
+- Port City Hospital has 61 long-stay patients, with an 8.2% nurse-to-patient ratio.
+- Peoples Care Hospital has 71 long-stay patients with 7.0% nurse-to-patient ratio.
+- Some non-acute care facilities have a very high nurse-to-patient ratio (above 70%), indicating staffing inefficiencies.
+- 
 [🔼 Back to Table of Contents](#-table-of-contents)
 
 ---
 
 ## 🏥 Recommendations  
 
-### ✅ Optimize High-LOS Hospitals  
-- Investigate reasons for extended stays at Strong Memorial Hospital and others.  
-- Implement efficiency strategies to reduce hospital congestion.  
-
-### ✅ Cost-Effectiveness Measures  
-- Compare hospitals with high vs. low treatment costs and analyze the quality of care.  
-- Negotiate better cost structures or improve resource allocation.  
+✅ Stable Bed Occupancy: Low occupancy (19%), but ICU utilization is high, requiring better ICU resource allocation.
+⚠️ Critical Supply Management Needed: Needles stock is very low; procurement needed. IV Bags and Diagnostic Kits usage is high, so stock needs continuous monitoring.
+📉 Treatment Costs Declining: Slight 1.5% drop in expenses, indicating cost control efforts, but further analysis needed to ensure quality care isn’t affected.
+👨‍⚕️ Staffing Imbalance: Some non-acute care sections have excess nurses, while critical areas need better allocation.
 
 [🔼 Back to Table of Contents](#-table-of-contents)
 
@@ -425,10 +447,9 @@ IF (_Growth <> 0,
 
 ## 🚀 Project Impact  
 
-✔ Improve patient care efficiency  
-✔ Reduce unnecessary hospital costs  
-✔ Optimize healthcare resource utilization  
-✔ Enhance hospital performance benchmarking  
-
+🚀 Faster Patient Care → Reduced wait times & better treatment outcomes
+📉 Lower Operational Costs → Smarter resource allocation & waste reduction
+💰 Increased Revenue → Data-driven financial planning
+📊 Informed Decision-Making → AI-driven predictions & real-time monitoring
 ---
 
