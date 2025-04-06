@@ -8,6 +8,8 @@
 </p>
 
 ## 📌 Project Overview  
+![image](https://github.com/user-attachments/assets/7db3e4bb-aae5-418d-acf8-00920c07bdd9)
+
 This Fintech Performance Dashboard is designed to provide a comprehensive view of your organization's operational health and growth potential. Tailored for leaders and decision-makers, the dashboard delivers actionable insights into critical areas, helping you achieve efficiency, transparency, and excellence.
 
 ---
