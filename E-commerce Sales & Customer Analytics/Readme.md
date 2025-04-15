@@ -214,7 +214,8 @@ IF(
 ```
 
 ```DAX
-Increase Avg Sales <> Jan = CALCULATE([Increase Avg Sales], 'Date Lookup'[Month]<>1)```
+Increase Avg Sales <> Jan = CALCULATE([Increase Avg Sales], 'Date Lookup'[Month]<>1)
+```
 [🔼 Back to Table of Contents](#-table-of-contents)
 
 ---
@@ -235,7 +236,7 @@ Increase Avg Sales <> Jan = CALCULATE([Increase Avg Sales], 'Date Lookup'[Month]
 [🔼 Back to Table of Contents](#-table-of-contents)
 
 ---
-
+## 📈 Key Business Insights
 
 📌 Executive Summary Dashboard – E-commerce Sales & Customer Analytics
 This dashboard offers a high-level overview of key performance indicators (KPIs) for e-commerce businesses, combining sales, profit, and customer return behavior into one interactive view.
@@ -334,11 +335,9 @@ Although customer acquisition surged, average spending dropped, suggesting a nee
 
 - RFM segmentation reveals that nearly 1 in 3 customers are at risk of churn (About to Sleep), while Champions remains a small but valuable segment.
 
-[🔼 Back to Table of Contents](#-table-of-contents)
 
----
 
-## 📈 Key Business Insights
+## 📈 Key Business Insights keypoints:
 
 - **Customer Growth**: 247% increase in total customers YoY
 - **Spending Drop**: Despite more customers, average spending fell by 58%
@@ -346,7 +345,10 @@ Although customer acquisition surged, average spending dropped, suggesting a nee
 - **Return Rate Watch**: Some accessories like "All-Purpose Bike Stand" have higher return rates (4.2%+)
 - **Customer Segments**: 35.5% of customers are "Promising", while 28.6% are "About to Sleep" — indicating opportunities and risks
 - **Seasonality**: High spending in Jan and Dec; major drop in Aug (−66%)
+  
+[🔼 Back to Table of Contents](#-table-of-contents)
 
+---
 
 ## 💡 Business Recommendations
 
