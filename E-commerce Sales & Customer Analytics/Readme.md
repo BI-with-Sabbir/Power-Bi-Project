@@ -30,15 +30,17 @@ This Power BI-powered reporting solution empowers e-commerce businesses with rea
 ## 📂 Dataset Details  
 
 ### Columns in the Dataset:  
-- [**Customer_Lookup:**] (
-- **Date_Lookup:** Date, Start of the Month, Year, Quarter, Year-Quarter, Month,   
-- **Revenue_Table:** Revenue_Amount, Revenue_ID, Source_of_Revenue  
-- **Customer_Table:** Age, Age_Group, Customer_ID, Gender, Location, Name, Other_Demographics  
-- **Dim_Date:** Date, Day Name, Day Type, Month, Month Name, Quarter, Start of Month, Year  
-- **Merchant_Table:** Business_Type, Merchant_ID, Merchant_Location, Merchant_Name, Total_Transactions  
-- **Agent_Table:** Active_Status, Agent_ID, Agent_Name, Incentive_Plan, Location, Number_of_Transactions, Total_Revenue_Generated  
-- **Transaction_Fact:** Agent_ID, Category_ID, Channel, Customer_ID, Gender, Location, Merchant_ID, Revenue_ID, Transaction_Date, Transaction_ID  
+- **Customer_Lookup:** [Click here](https://github.com/BI-with-Sabbir/Power-Bi-Project/blob/main/E-commerce%20Sales%20%26%20Customer%20Analytics/Customer%20Lookup.csv)
+- **Date_Lookup:**   [Click here](https://github.com/BI-with-Sabbir/Power-Bi-Project/blob/main/E-commerce%20Sales%20%26%20Customer%20Analytics/Date%20Lookup.csv)
+- **Customer Group:** [Click here](https://github.com/BI-with-Sabbir/Power-Bi-Project/blob/main/E-commerce%20Sales%20%26%20Customer%20Analytics/Customer%20Group.csv)
+- **Product Lookup:**[Click here](https://github.com/BI-with-Sabbir/Power-Bi-Project/blob/main/E-commerce%20Sales%20%26%20Customer%20Analytics/Product%20Lookup.csv)
+- **Product Subcategories Lookup:** [Click here](https://github.com/BI-with-Sabbir/Power-Bi-Project/blob/main/E-commerce%20Sales%20%26%20Customer%20Analytics/Product%20Subcategories%20Lookup.csv)
+- **RFM Table:** [Click here](https://github.com/BI-with-Sabbir/Power-Bi-Project/blob/main/E-commerce%20Sales%20%26%20Customer%20Analytics/RFM%20Segment.csv)
+- **Return_Table:** [Click here](https://github.com/BI-with-Sabbir/Power-Bi-Project/blob/main/E-commerce%20Sales%20%26%20Customer%20Analytics/Return.csv) 
+- **Sales Lookup:**[Click here](https://github.com/BI-with-Sabbir/Power-Bi-Project/blob/main/E-commerce%20Sales%20%26%20Customer%20Analytics/Sales.csv)
+- **Territory_Table:** [Click here](https://github.com/BI-with-Sabbir/Power-Bi-Project/blob/main/E-commerce%20Sales%20%26%20Customer%20Analytics/Territory%20Lookup.csv)
 
+  
 [🔼 Back to Table of Contents](#-table-of-contents)
 
 ---
@@ -46,32 +48,61 @@ This Power BI-powered reporting solution empowers e-commerce businesses with rea
 ## 🔄 Data Preprocessing  
 
 ### Steps Taken:  
-#### **Transaction Fact Table Preprocessing:**  
-- **Promote Headers:** Ensure the first row is used as column headers.  
-- **Change Data Types:** Convert Transaction_ID to Int64, and other relevant columns to text or date.  
-- **Remove Errors:** Eliminate rows with errors in Transaction_ID.  
-- **Drop Unnecessary Columns:** Remove unused columns.  
-- **Replace Null Values:** Fill missing values in Agent_ID and Merchant_ID with "Not found".  
-- **Sort Transactions:** Arrange by Transaction_Date in ascending order.  
-- **Standardize Data Types:** Convert ID fields to text.  
-- **Add Index Column:** Create an index starting from 489434.  
-- **Join with Customer Table:** Merge to bring Location and Gender.  
-- **Fill Missing Data:** Replace null values with default values.  
+#### **Calculate some Groups of table which is help in our analysis project:**  
+- **Customer Information Table:**
+  ```DAX
+    Customer Information = {
+    ("Expenditure Analysis", NAMEOF('Measures Table'[Sales Per Customer]), 0),
+    ("Demographic Analysis", NAMEOF('Measures Table'[Active Customers]), 1)
+  }
+```
 
-#### **Dim Date Table Preprocessing:**  
-- Define Date Range from MinOrderDate to MaxOrderDate.  
-- Generate a continuous date list.  
-- Extract Date Components (Year, Month, Quarter, Start of Month).  
-- Format Date Information (Short Month Names, Quarter Formatting).  
-- Classify Days as Weekend or Weekday.  
-- Sort by Date.  
+- **Customer/Sales Table:**
+
+```DAX
+    Customer/sales = {
+    ("Active Customers", NAMEOF('Measures Table'[Active Customers]), 0),
+    ("Sales Per Customer", NAMEOF('Measures Table'[Sales Per Customer]), 1)
+   }
+```
+- **KY kpi:**
+```DAX
+  CY KPI = {
+    ("#Transaction", NAMEOF('Measures Table'[Total Transaction]), 0),
+    ("Total Revenue", NAMEOF('Measures Table'[Total Revenue]), 1),
+    ("Profit", NAMEOF('Measures Table'[Profit]), 2),
+    ("Profit Margin", NAMEOF('Measures Table'[Profit Margin]), 3),
+    ("Return Rate", NAMEOF('Measures Table'[Return Rate (%)]), 4)
+}
+```
+- **Product Split:**
+```DAX
+    Product Split = CROSSJOIN(
+    {"A+", "Others"},
+    SELECTCOLUMNS('Product Lookup', "Product Name", 'Product Lookup'[Product Name]))
+```
+- **RFM value:**
+- ```DAX
+  RFM Table =
+  SUMMARIZE( 'Customer Lookup' , 'Customer Lookup'[CustomerKey], "R Value" , [R Value],"F Value" , [Frequency] , "M Value" , [Monetary])
+  ```
+  
+
+#### **Data Cleaning and  Preprocessing:**  
+- Promote Headers.
+- Change Data Types
+- Remove Errors
+- Drop Unnecessary Columns
+- Replace Null Values
+
 
 [🔼 Back to Table of Contents](#-table-of-contents)
 
 ---
 
 ## 📊 Data Modeling  
-![image](https://github.com/user-attachments/assets/c638bf4a-db61-425e-bee7-69e0ccd044a0)
+![image](https://github.com/user-attachments/assets/d6123ff5-c475-443f-9969-947afffefc65)
+
 
 [🔼 Back to Table of Contents](#-table-of-contents)
 
@@ -80,51 +111,117 @@ This Power BI-powered reporting solution empowers e-commerce businesses with rea
 ## 🧮 DAX Measures  
 ### General Measures  
 ```DAX
-Transaction Volume by agents = 
-SUMX(
-    FILTER(Transaction_Fact, Transaction_Fact[Channel] = "Agent"),
-    RELATED(Revenue_Table[Revenue_Amount])
-)
-```
-```DAX
-Total Transactions by Agents = 
-CALCULATE(
-    COUNT(Transaction_Fact[Transaction_ID]),
-    Transaction_Fact[Channel] = "Agent"
-)
-```
-```DAX
-Total transaction volume = SUMX('Transaction_fact', RELATED('Revenue_table'[Revenue_Amount]))
-```
-```DAX
-Total Transaction = DISTINCTCOUNT(Transaction_fact[Transaction_ID])
-```
-```DAX
-Success Rate = 
-DIVIDE(
-    COUNTROWS(
+Avg Sales Excluding January and Last Month of Year = 
+VAR LastYear = MAX('Date Lookup'[Year])
+VAR LastMonth = 
+    CALCULATE(
+        MAX('Date Lookup'[Month]),
         FILTER(
-            'Transaction_fact',
-            'Transaction_fact'[Transaction_Status] = "Successful"
+            ALL('Date Lookup'),
+            'Date Lookup'[Year] = LastYear
+        )
+    )
+VAR ValidMonths = 
+    FILTER(
+        'Date Lookup',
+        'Date Lookup'[Year] = LastYear &&
+        'Date Lookup'[Month] <> 1 &&          // Exclude January
+        'Date Lookup'[Month] <> LastMonth     // Exclude the last month
+    )
+VAR SelectedMonth = MAXX(ValidMonths, 'Date Lookup'[Month])
+RETURN
+CALCULATE(
+    MIN([Sales Per Customer], [PM Avg Salesper customers])
+,
+    FILTER(
+        'Date Lookup',
+        'Date Lookup'[Year] = LastYear &&
+        'Date Lookup'[Month] = SelectedMonth
+    )
+)
+```
+```DAX
+Avg Sales Last Month = 
+VAR LastYear = MAX('Date Lookup'[Year])
+VAR LastMonth =
+    CALCULATE(
+        MAX('Date Lookup'[Month]),
+        FILTER(
+            ALL('Date Lookup'),
+            'Date Lookup'[Year] = LastYear
+        )
+    )
+RETURN
+CALCULATE(
+    IF(
+        SELECTEDVALUE('Date Lookup'[Month]) = 1,
+        [Sales Per Customer], // January's value from the current year
+        IF(
+            SELECTEDVALUE('Date Lookup'[Month]) = LastMonth,
+            MINX(
+                { [Sales Per Customer], [PM Avg Salesper customers] },
+                [Value] // Evaluates the minimum between the current and previous month measures
+            )
         )
     ),
-    COUNTROWS('Transaction_fact'),
-    0
-) 
+    FILTER(
+        'Date Lookup',
+        'Date Lookup'[Year] = LastYear &&
+        (
+            'Date Lookup'[Month] = 1 || // Include January
+            'Date Lookup'[Month] = LastMonth // Include the last month condition
+        )
+    )
+)
+
+
 ```
+```DAX
+Base Avg Sales = CALCULATE(
+    MIN([Sales Per Customer], [PM Avg Salesper customers])
+)
+```DAX
+Decrease Avg Sales = 
+VAR CY = [Sales Per Customer]
+VAR PY = [PM Avg Salesper customers]
+
+RETURN
+IF(PY>CY, PY - [Base Avg Sales])
+```
+```DAX
+Decrease Avg Sales <> Jan = CALCULATE([Decrease Avg Sales], 'Date Lookup'[Month]<>1)
+```
+```DAX
+Increase Avg Sales = 
+VAR CY = [Sales Per Customer]
+VAR PY = [PM Avg Salesper customers]
+
+RETURN
+IF(
+    MONTH(MAX('Date Lookup'[Date])) , 
+    IF(CY > PY, [Sales Per Customer] - [Base Avg Sales]
+
+
+))
+```
+```DAX
+Increase Avg Sales <> Jan = CALCULATE([Increase Avg Sales], 'Date Lookup'[Month]<>1)```
 [🔼 Back to Table of Contents](#-table-of-contents)
 
 ---
 
 ## 📈 Dashboard & Visualizations  
-### 📌 Business Performance  
-![image](https://github.com/user-attachments/assets/024f48b4-3b58-498b-8ff9-20346a6aade1)
+### 📌 Customer Analysis 
+![image](https://github.com/user-attachments/assets/1db076c3-ec1d-4d31-a05a-7f4c429d1ddf)
 
-### 📌 Agent Network Optimization  
-![image](https://github.com/user-attachments/assets/c795d3e1-f843-4f42-8f04-3b4f725eac1e)
 
-### 📌 Customer Insights  
-![image](https://github.com/user-attachments/assets/880becc0-048f-41bb-a9a7-372f6c0bba79)
+### 📌 Product Analytics by Pareto Analysis
+![image](https://github.com/user-attachments/assets/174a0440-8939-430e-bc5b-080b796f55b2)
+
+
+### 📌 Territory Analysis
+![image](https://github.com/user-attachments/assets/564ba4c1-bf7f-400b-a4c8-f14ebc6cd3ee)
+
 
 [🔼 Back to Table of Contents](#-table-of-contents)
 
