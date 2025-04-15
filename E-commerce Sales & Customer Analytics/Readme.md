@@ -21,8 +21,8 @@ This Power BI-powered reporting solution empowers e-commerce businesses with rea
 - [Data Modeling](#-data-modeling)  
 - [DAX Measures](#-dax-measures)  
 - [Dashboard & Visualizations](#-dashboard--visualizations)  
-- [Key Findings](#-key-findings)  
-- [Recommendations](#-recommendations)  
+- [Key Business Insights](#-key-findings)  
+- [Business Recommendations](#-recommendations)  
 - [Project Impact](#-project-impact)  
 
 ---
