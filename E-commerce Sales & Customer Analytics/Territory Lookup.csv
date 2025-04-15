@@ -1,0 +1,11 @@
+SalesTerritoryKey,Country long,ISO_Country_Code,Region,Continent,Country
+1,United States of America,840,Northwest,North America,USA
+2,United States of America,840,Northeast,North America,USA
+3,United States of America,840,Central,North America,USA
+4,United States of America,840,Southwest,North America,USA
+5,United States of America,840,Southeast,North America,USA
+6,Canada,124,Canada,North America,Canada
+7,France,250,France,Europe,France
+8,Germany,276,Germany,Europe,Germany
+9,Australia,036,Australia,Pacific,Australia
+10,United Kingdom,826,United Kingdom,Europe,UK

@@ -1,0 +1,5 @@
+Customer Group,Customer Group Fields,Customer Group Order
+Education Level,'Customer Lookup'[Education Level],0
+Income Group,'Customer Lookup'[Income Group],1
+Occupation,'Customer Lookup'[Occupation],2
+Age Group,'Customer Lookup'[Age Group],3
