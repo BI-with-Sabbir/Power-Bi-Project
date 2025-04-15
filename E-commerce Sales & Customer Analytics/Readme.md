@@ -227,32 +227,146 @@ Increase Avg Sales <> Jan = CALCULATE([Increase Avg Sales], 'Date Lookup'[Month]
 
 ---
 
-## 📊 Key Findings  
-- **Transaction Volume:** 22.0bn – Strong financial activity.  
-- **Transaction Success Rate:** 88.5% – Needs improvement in failed transactions.  
-- **Top Channel:** Mobile App (42.36%) – Digital adoption is high.  
-- **Cash In Dominance:** 7.2bn – Large amounts being deposited into accounts.  
-- **Geographical Trends:** Dhaka leads in fintech adoption.  
+
+📌 Executive Summary Dashboard – Ecommerce Sales & Customer Analytics
+This dashboard offers a high-level overview of key performance indicators (KPIs) for ecommerce businesses, combining sales, profit, and customer return behavior into one interactive view.
+
+## 🔍 Highlights:
+- Total Transactions: 10.7K (📈 +307% YoY)
+
+- Revenue: $9.3M (📈 +46% YoY)
+
+- Profit: $4.0M (📈 +52% YoY)
+
+- Profit Margin: 42.5%
+
+- Return Rate: 2.1% (📉 -35% YoY)
+
+## 📊 Key Visuals:
+- Revenue Trend & Forecast: A clear time-series line chart showing revenue growth throughout 2021.
+
+- Return Rate by Month and Category: A stacked column chart comparing return rates for Accessories, Bikes, and Clothing.
+
+- Top 15 Subcategories by Return Rate: Detailed view of subcategories like Tires, Road Bikes, Helmets, etc., including YoY change.
+
+## 🧩 Interactive Features:
+- Category selector (Accessories, Bikes, Clothing)
+
+- Scrollable subcategory list
+
+- Real-time comparison between current and previous year (CY vs. PY)
+
+### 🧮 Product Analysis Dashboard – Performance by Product
+This dashboard dives into individual product-level performance to help businesses identify their top revenue-generating items, track sales trends, and monitor return behavior.
+
+## 🔍 Highlights:
+- Dynamic Revenue Target Slider: Users can filter products based on a custom revenue contribution target (e.g., Top 20%).
+
+- Product Segmentation:
+
+- A+ Group: Top 3 performers contributed $1.76M+ in revenue, each with strong profit margins and relatively low return rates.
+
+## 📊 Example Insights:
+Mountain-200 Black, 46 generated $616,779 revenue with a return rate of 3.7%, while Mountain-200 Silver, 46 had the lowest return rate at 1.8% among A+ products.
+
+Some smaller products like HL Road Tire had a higher return rate (4.6%) despite lower revenue.
+
+## 🧩 Interactive Filters:
+Country, Category, and Year selectors
+
+Revenue Target slider dynamically updates the table
+
+### 👥 Customer Analysis Dashboard – Demographics & Behavioral Insights
+This dashboard delivers a comprehensive overview of customer profiles, spending behavior, and segmentation to help drive targeted marketing and retention strategies.
+
+🔎 Key Areas:
+##📊 1. Demographic Analysis:
+Visual distribution by:
+
+- Gender
+
+- Marital Status
+
+- Parenthood
+
+- Home Ownership
+
+- Tabs to explore deeper by:
+
+- Education Level
+
+- Income Group
+
+- Occupation
+
+- Age Group
+
+##💸 2. Expenditure Analysis:
+- Customer Count: 9.1K in 2021, a +247% increase from 2020
+
+- Average Spending: $1,021 in 2021, a -58% drop from prior year
+
+- Monthly Trend: Notable dip in August (-66%), recovery in December (+16%)
+
+## 🧠 3. RFM-Based Customer Segmentation:
+- Promising Customers: 35.5%
+
+- About to Sleep: 28.6%
+
+- Loyal Customers: 16.3%
+
+- Champions: 8.5%
+
+- Needs Attention: 9.8%
+
+
+## 🧠 Insights for Business:
+Although customer acquisition surged, average spend dropped, suggesting a need for loyalty and re-engagement campaigns.
+
+- RFM segmentation reveals that nearly 1 in 3 customers are at risk of churn (About to Sleep), while Champions remain a small but valuable segment.
 
 [🔼 Back to Table of Contents](#-table-of-contents)
 
 ---
 
-## 🏥 Recommendations  
-✔ Expand agent networks in underserved regions.  
-✔ Increase female customer engagement through financial inclusion campaigns.  
-✔ Enhance digital service usage with promotions.  
-✔ Optimize failed transactions for better user experience.  
+## 📈 Key Business Insights
+
+- **Customer Growth**: 247% increase in total customers YoY
+- **Spending Drop**: Despite more customers, average spending fell by 58%
+- **Top Products**: Mountain bikes (e.g., Mountain-200 series) are best-sellers with high profits and low return rates
+- **Return Rate Watch**: Some accessories like "All-Purpose Bike Stand" have higher return rates (4.2%+)
+- **Customer Segments**: 35.5% of customers are "Promising", while 28.6% are "About to Sleep" — indicating opportunities and risks
+- **Seasonality**: High spending in Jan and Dec; major drop in Aug (−66%)
+
+
+## 💡 Business Recommendations
+
+1. **Target High-Value Segments**  
+   Focus marketing on Loyal Customers and Champions to increase retention and repeat purchases.
+
+2. **Re-engage At-Risk Customers**  
+   Create campaigns for "About to Sleep" and "Needs Attention" segments to reduce churn.
+
+3. **Boost Average Spending**  
+   Introduce loyalty programs and bundle offers to increase per-customer revenue.
+
+4. **Improve Underperforming Products**  
+   Investigate high return rate items to improve quality or adjust marketing strategies.
+
+5. **Optimize Inventory for Seasonal Trends**  
+   Prepare for low sales periods (e.g., August) and capitalize on high-spending months like December and January.
 
 [🔼 Back to Table of Contents](#-table-of-contents)
 
 ---
 
-## 🚀 Project Impact  
-✔ Optimized failed transactions.  
-✔ Targeted regional fintech growth.  
-✔ Promoted digital spending.  
-✔ Leveraged seasonal transaction trends for business insights.  
+## 🌟 Project Impact
+
+- ✅ Improved customer segmentation and retention strategy
+- ✅ Highlighted top revenue-generating and underperforming products
+- ✅ Enabled data-driven seasonal marketing and product planning
+- ✅ Helped visualize the link between demographics and spending behavior
+- ✅ Empowered business users with self-service analytics dashboards
 
 
 
