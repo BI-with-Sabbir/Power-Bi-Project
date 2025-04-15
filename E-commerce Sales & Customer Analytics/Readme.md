@@ -49,15 +49,15 @@ This Power BI-powered reporting solution empowers e-commerce businesses with rea
 
 ### Steps Taken:  
 #### **Calculate some Groups of table which is help in our analysis project:**  
-- **Customer Information Table:**
-  ```DAX
-    Customer Information = {
+**Customer Information Table:**
+```DAX
+Customer Information = {
     ("Expenditure Analysis", NAMEOF('Measures Table'[Sales Per Customer]), 0),
     ("Demographic Analysis", NAMEOF('Measures Table'[Active Customers]), 1)
   }
 ```
 
-- **Customer/Sales Table:**
+**Customer/Sales Table:**
 
 ```DAX
     Customer/sales = {
@@ -65,7 +65,8 @@ This Power BI-powered reporting solution empowers e-commerce businesses with rea
     ("Sales Per Customer", NAMEOF('Measures Table'[Sales Per Customer]), 1)
    }
 ```
-- **KY kpi:**
+
+**KY KPI:**
 ```DAX
   CY KPI = {
     ("#Transaction", NAMEOF('Measures Table'[Total Transaction]), 0),
@@ -75,14 +76,16 @@ This Power BI-powered reporting solution empowers e-commerce businesses with rea
     ("Return Rate", NAMEOF('Measures Table'[Return Rate (%)]), 4)
 }
 ```
-- **Product Split:**
+
+**Product Split:**
 ```DAX
     Product Split = CROSSJOIN(
     {"A+", "Others"},
     SELECTCOLUMNS('Product Lookup', "Product Name", 'Product Lookup'[Product Name]))
 ```
-- **RFM value:**
-- ```DAX
+
+**RFM value:**
+```DAX
   RFM Table =
   SUMMARIZE( 'Customer Lookup' , 'Customer Lookup'[CustomerKey], "R Value" , [R Value],"F Value" , [Frequency] , "M Value" , [Monetary])
   ```
@@ -140,6 +143,7 @@ CALCULATE(
     )
 )
 ```
+
 ```DAX
 Avg Sales Last Month = 
 VAR LastYear = MAX('Date Lookup'[Year])
@@ -176,10 +180,12 @@ CALCULATE(
 
 
 ```
+
 ```DAX
 Base Avg Sales = CALCULATE(
     MIN([Sales Per Customer], [PM Avg Salesper customers])
 )
+
 ```DAX
 Decrease Avg Sales = 
 VAR CY = [Sales Per Customer]
@@ -188,9 +194,11 @@ VAR PY = [PM Avg Salesper customers]
 RETURN
 IF(PY>CY, PY - [Base Avg Sales])
 ```
+
 ```DAX
 Decrease Avg Sales <> Jan = CALCULATE([Decrease Avg Sales], 'Date Lookup'[Month]<>1)
 ```
+
 ```DAX
 Increase Avg Sales = 
 VAR CY = [Sales Per Customer]
@@ -204,6 +212,7 @@ IF(
 
 ))
 ```
+
 ```DAX
 Increase Avg Sales <> Jan = CALCULATE([Increase Avg Sales], 'Date Lookup'[Month]<>1)```
 [🔼 Back to Table of Contents](#-table-of-contents)
@@ -228,8 +237,8 @@ Increase Avg Sales <> Jan = CALCULATE([Increase Avg Sales], 'Date Lookup'[Month]
 ---
 
 
-📌 Executive Summary Dashboard – Ecommerce Sales & Customer Analytics
-This dashboard offers a high-level overview of key performance indicators (KPIs) for ecommerce businesses, combining sales, profit, and customer return behavior into one interactive view.
+📌 Executive Summary Dashboard – E-commerce Sales & Customer Analytics
+This dashboard offers a high-level overview of key performance indicators (KPIs) for e-commerce businesses, combining sales, profit, and customer return behavior into one interactive view.
 
 ## 🔍 Highlights:
 - Total Transactions: 10.7K (📈 +307% YoY)
@@ -267,14 +276,14 @@ This dashboard dives into individual product-level performance to help businesse
 - A+ Group: Top 3 performers contributed $1.76M+ in revenue, each with strong profit margins and relatively low return rates.
 
 ## 📊 Example Insights:
-Mountain-200 Black, 46 generated $616,779 revenue with a return rate of 3.7%, while Mountain-200 Silver, 46 had the lowest return rate at 1.8% among A+ products.
+Mountain-200 Black, 46 generated $616,779 in revenue with a return rate of 3.7%, while Mountain-200 Silver, 46 had the lowest return rate at 1.8% among A+ products.
 
 Some smaller products like HL Road Tire had a higher return rate (4.6%) despite lower revenue.
 
 ## 🧩 Interactive Filters:
 Country, Category, and Year selectors
 
-Revenue Target slider dynamically updates the table
+The revenue Target slider dynamically updates the table
 
 ### 👥 Customer Analysis Dashboard – Demographics & Behavioral Insights
 This dashboard delivers a comprehensive overview of customer profiles, spending behavior, and segmentation to help drive targeted marketing and retention strategies.
@@ -304,7 +313,7 @@ Visual distribution by:
 ##💸 2. Expenditure Analysis:
 - Customer Count: 9.1K in 2021, a +247% increase from 2020
 
-- Average Spending: $1,021 in 2021, a -58% drop from prior year
+- Average Spending: $1,021 in 2021, a -58% drop from the prior year
 
 - Monthly Trend: Notable dip in August (-66%), recovery in December (+16%)
 
@@ -321,9 +330,9 @@ Visual distribution by:
 
 
 ## 🧠 Insights for Business:
-Although customer acquisition surged, average spend dropped, suggesting a need for loyalty and re-engagement campaigns.
+Although customer acquisition surged, average spending dropped, suggesting a need for loyalty and re-engagement campaigns.
 
-- RFM segmentation reveals that nearly 1 in 3 customers are at risk of churn (About to Sleep), while Champions remain a small but valuable segment.
+- RFM segmentation reveals that nearly 1 in 3 customers are at risk of churn (About to Sleep), while Champions remains a small but valuable segment.
 
 [🔼 Back to Table of Contents](#-table-of-contents)
 
@@ -351,7 +360,7 @@ Although customer acquisition surged, average spend dropped, suggesting a need f
    Introduce loyalty programs and bundle offers to increase per-customer revenue.
 
 4. **Improve Underperforming Products**  
-   Investigate high return rate items to improve quality or adjust marketing strategies.
+   Investigate high-return rate items to improve quality or adjust marketing strategies.
 
 5. **Optimize Inventory for Seasonal Trends**  
    Prepare for low sales periods (e.g., August) and capitalize on high-spending months like December and January.
