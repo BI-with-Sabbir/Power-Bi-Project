@@ -31,15 +31,14 @@ This Business Intelligence (BI) Solution, built with Power BI, provides a compre
 ## 📂 Dataset Details  
 
 ### Columns in the Dataset:  
-- **Customer_Lookup:** [Click here]()
-- **Date_Lookup:**   [Click here]()
-- **Customer Group:** [Click here]()
-- **Product Lookup:**[Click here]()
-- **Product Subcategories Lookup:** [Click here]()
-- **RFM Table:** [Click here]()
-- **Return_Table:** [Click here]() 
-- **Sales Lookup:**[Click here]()
-- **Territory_Table:** [Click here]()
+- **aligned_sales_targets:** [Click here](https://github.com/BI-with-Sabbir/Power-Bi-Project/blob/main/FMCG%20Sales%20%26%20Marketing%20BI/aligned_sales_targets.csv)
+- **calendar:**   [Click here](https://github.com/BI-with-Sabbir/Power-Bi-Project/blob/main/FMCG%20Sales%20%26%20Marketing%20BI/calendar.csv)
+- **customers:** [Click here](https://github.com/BI-with-Sabbir/Power-Bi-Project/blob/main/FMCG%20Sales%20%26%20Marketing%20BI/customers.csv)
+- **products:**[Click here](https://github.com/BI-with-Sabbir/Power-Bi-Project/blob/main/FMCG%20Sales%20%26%20Marketing%20BI/products.csv)
+- **promotions:** [Click here](https://github.com/BI-with-Sabbir/Power-Bi-Project/blob/main/FMCG%20Sales%20%26%20Marketing%20BI/promotions.csv)
+- **regions:** [Click here](https://github.com/BI-with-Sabbir/Power-Bi-Project/blob/main/FMCG%20Sales%20%26%20Marketing%20BI/regions.csv)
+- **sales_with_promotions:** [Click here](https://github.com/BI-with-Sabbir/Power-Bi-Project/blob/main/FMCG%20Sales%20%26%20Marketing%20BI/sales_with_promotions.csv) 
+
 
   
 [🔼 Back to Table of Contents](#-table-of-contents)
@@ -47,51 +46,6 @@ This Business Intelligence (BI) Solution, built with Power BI, provides a compre
 ---
 
 ## 🔄 Data Preprocessing  
-
-### Steps Taken:  
-#### **Calculate some Groups of table which is help in our analysis project:**  
-**Customer Information Table:**
-```DAX
-Customer Information = {
-    ("Expenditure Analysis", NAMEOF('Measures Table'[Sales Per Customer]), 0),
-    ("Demographic Analysis", NAMEOF('Measures Table'[Active Customers]), 1)
-  }
-```
-
-**Customer/Sales Table:**
-
-```DAX
-    Customer/sales = {
-    ("Active Customers", NAMEOF('Measures Table'[Active Customers]), 0),
-    ("Sales Per Customer", NAMEOF('Measures Table'[Sales Per Customer]), 1)
-   }
-```
-
-**KY KPI:**
-```DAX
-  CY KPI = {
-    ("#Transaction", NAMEOF('Measures Table'[Total Transaction]), 0),
-    ("Total Revenue", NAMEOF('Measures Table'[Total Revenue]), 1),
-    ("Profit", NAMEOF('Measures Table'[Profit]), 2),
-    ("Profit Margin", NAMEOF('Measures Table'[Profit Margin]), 3),
-    ("Return Rate", NAMEOF('Measures Table'[Return Rate (%)]), 4)
-}
-```
-
-**Product Split:**
-```DAX
-    Product Split = CROSSJOIN(
-    {"A+", "Others"},
-    SELECTCOLUMNS('Product Lookup', "Product Name", 'Product Lookup'[Product Name]))
-```
-
-**RFM value:**
-```DAX
-  RFM Table =
-  SUMMARIZE( 'Customer Lookup' , 'Customer Lookup'[CustomerKey], "R Value" , [R Value],"F Value" , [Frequency] , "M Value" , [Monetary])
-  ```
-  
-
 #### **Data Cleaning and  Preprocessing:**  
 - Promote Headers.
 - Change Data Types
@@ -105,7 +59,8 @@ Customer Information = {
 ---
 
 ## 📊 Data Modeling  
-![image](https://github.com/user-attachments/assets/d6123ff5-c475-443f-9969-947afffefc65)
+![image](https://github.com/user-attachments/assets/d8917d02-c745-4478-97ad-7ebd74471521)
+
 
 
 [🔼 Back to Table of Contents](#-table-of-contents)
@@ -115,123 +70,51 @@ Customer Information = {
 ## 🧮 DAX Measures  
 ### General Measures  
 ```DAX
-Avg Sales Excluding January and Last Month of Year = 
-VAR LastYear = MAX('Date Lookup'[Year])
-VAR LastMonth = 
-    CALCULATE(
-        MAX('Date Lookup'[Month]),
-        FILTER(
-            ALL('Date Lookup'),
-            'Date Lookup'[Year] = LastYear
-        )
-    )
-VAR ValidMonths = 
-    FILTER(
-        'Date Lookup',
-        'Date Lookup'[Year] = LastYear &&
-        'Date Lookup'[Month] <> 1 &&          // Exclude January
-        'Date Lookup'[Month] <> LastMonth     // Exclude the last month
-    )
-VAR SelectedMonth = MAXX(ValidMonths, 'Date Lookup'[Month])
-RETURN
-CALCULATE(
-    MIN([Sales Per Customer], [PM Avg Salesper customers])
-,
-    FILTER(
-        'Date Lookup',
-        'Date Lookup'[Year] = LastYear &&
-        'Date Lookup'[Month] = SelectedMonth
-    )
+Total Sales = sum(Fact_Sales[Sales_Amount]) 
+```
+
+```DAX
+Total Quantity Sold = SUM(Fact_Sales[Quantity_Sold])
+
+```
+
+```DAX
+Total Profit = [Total Sales]-[Total Cost]
 )
 ```
-
 ```DAX
-Avg Sales Last Month = 
-VAR LastYear = MAX('Date Lookup'[Year])
-VAR LastMonth =
-    CALCULATE(
-        MAX('Date Lookup'[Month]),
-        FILTER(
-            ALL('Date Lookup'),
-            'Date Lookup'[Year] = LastYear
-        )
-    )
-RETURN
-CALCULATE(
-    IF(
-        SELECTEDVALUE('Date Lookup'[Month]) = 1,
-        [Sales Per Customer], // January's value from the current year
-        IF(
-            SELECTEDVALUE('Date Lookup'[Month]) = LastMonth,
-            MINX(
-                { [Sales Per Customer], [PM Avg Salesper customers] },
-                [Value] // Evaluates the minimum between the current and previous month measures
-            )
-        )
-    ),
-    FILTER(
-        'Date Lookup',
-        'Date Lookup'[Year] = LastYear &&
-        (
-            'Date Lookup'[Month] = 1 || // Include January
-            'Date Lookup'[Month] = LastMonth // Include the last month condition
-        )
-    )
-)
-
-
+Post Promotion Sales = CALCULATE([Total Sales],Dim_Promotions[Promotion_Type]="No Promotion",Fact_Sales[Date]>max(Dim_Promotions[End_Date]))/CALCULATE(DISTINCTCOUNT(Fact_Sales[Date]),
+Dim_Promotions[Promotion_Type]="No Promotion",Fact_Sales[Date]>max(Dim_Promotions[End_Date]))
 ```
 
 ```DAX
-Base Avg Sales = CALCULATE(
-    MIN([Sales Per Customer], [PM Avg Salesper customers])
-)
-
-```DAX
-Decrease Avg Sales = 
-VAR CY = [Sales Per Customer]
-VAR PY = [PM Avg Salesper customers]
-
-RETURN
-IF(PY>CY, PY - [Base Avg Sales])
+Pre Promotion Sales = CALCULATE([Total Sales],Dim_Promotions[Promotion_Type]="No Promotion",Fact_Sales[Date]<min(Dim_Promotions[Start_Date]))/CALCULATE(DISTINCTCOUNT(Fact_Sales[Date]),Dim_Promotions[Promotion_Type]="No Promotion",Fact_Sales[Date]<min(Dim_Promotions[Start_Date]))
 ```
 
 ```DAX
-Decrease Avg Sales <> Jan = CALCULATE([Decrease Avg Sales], 'Date Lookup'[Month]<>1)
+Pre Year Order = CALCULATE(COUNT(Fact_Sales[Transaction_ID]),Dim_Date[Year]=MAX(Dim_Date[Year])-1) 
 ```
 
 ```DAX
-Increase Avg Sales = 
-VAR CY = [Sales Per Customer]
-VAR PY = [PM Avg Salesper customers]
-
-RETURN
-IF(
-    MONTH(MAX('Date Lookup'[Date])) , 
-    IF(CY > PY, [Sales Per Customer] - [Base Avg Sales]
-
-
-))
-```
-
-```DAX
-Increase Avg Sales <> Jan = CALCULATE([Increase Avg Sales], 'Date Lookup'[Month]<>1)
+Previous Year Cost = CALCULATE([Total Cost],Dim_Date[Year]=MAX(Dim_Date[Year])-1) 
 ```
 [🔼 Back to Table of Contents](#-table-of-contents)
 
 ---
 
 ## 📈 Dashboard & Visualizations  
-### 📌 Customer Analysis 
-![image](https://github.com/user-attachments/assets/1db076c3-ec1d-4d31-a05a-7f4c429d1ddf)
+### 📌 Financial Analysis 
+![image](https://github.com/user-attachments/assets/30646fb2-f8e3-4792-9476-060a372a689e)
 
 
-### 📌 Product Analytics by Pareto Analysis
-![image](https://github.com/user-attachments/assets/174a0440-8939-430e-bc5b-080b796f55b2)
+
+### 📌 Customer Analysis by RFM Sales
+![image](https://github.com/user-attachments/assets/586bce8a-44b5-478d-9b7e-7ffc7c4f3a65)
 
 
-### 📌 Territory Analysis
-![image](https://github.com/user-attachments/assets/564ba4c1-bf7f-400b-a4c8-f14ebc6cd3ee)
+
+### 📌 Marketing Analysis on individual product
+![image](https://github.com/user-attachments/assets/90f39e60-493d-4540-8c4a-b02ca3d0e547)
 
 
 [🔼 Back to Table of Contents](#-table-of-contents)
@@ -239,113 +122,35 @@ Increase Avg Sales <> Jan = CALCULATE([Increase Avg Sales], 'Date Lookup'[Month]
 ---
 ## 📈 Key Business Insights
 
-📌 Executive Summary Dashboard – E-commerce Sales & Customer Analytics
-This dashboard offers a high-level overview of key performance indicators (KPIs) for e-commerce businesses, combining sales, profit, and customer return behavior into one interactive view.
+🔍 Key Business Insight: Promotions Boost Sales but Fail to Drive Long-Term Loyalty
+📊 Sales & Promotions Analysis
+- Bundle Offers generated the highest daily sales (152.9 units/day), far outperforming other promotion types.
 
-## 🔍 Highlights:
-- Total Transactions: 10.7K (📈 +307% YoY)
+- Sales quantity increased from 1,191 (Pre-Promo) to 1,395 (Post-Promo) — a 17% uplift.
 
-- Revenue: $9.3M (📈 +46% YoY)
+- However, YoY Sales Quantity and Revenue still dropped by 22.4% and 21.3% respectively, signaling issues beyond promotions.
 
-- Profit: $4.0M (📈 +52% YoY)
+💸 Profitability Insight
+- Despite promotions, Profit % remains flat at 24.8% (vs 24.9% last year).
 
-- Profit Margin: 42.5%
+- Total cost decreased by 21.2%, yet revenue dropped at the same pace, indicating inefficient revenue generation.
 
-- Return Rate: 2.1% (📉 -35% YoY)
+- High-cost categories like Snacks and Personal Care contribute most to sales, but have moderate profit margins (~23–37%).
 
-## 📊 Key Visuals:
-- Revenue Trend & Forecast: A clear time-series line chart showing revenue growth throughout 2021.
+👥 Customer Behavior Insight
+Top 2 segments by volume:
 
-- Return Rate by Month and Category: A stacked column chart comparing return rates for Accessories, Bikes, and Clothing.
+- Loyal Customers: 45%
 
-- Top 15 Subcategories by Return Rate: Detailed view of subcategories like Tires, Road Bikes, Helmets, etc., including YoY change.
+- Potential Loyalists: 31%
 
-## 🧩 Interactive Features:
-- Category selector (Accessories, Bikes, Clothing)
+🔼 Promotions impact is highest among:
 
-- Scrollable subcategory list
+- Potential Loyalists (+2638 units)
 
-- Real-time comparison between current and previous year (CY vs. PY)
+- At-Risk Customers (+2825 units)
 
-### 🧮 Product Analysis Dashboard – Performance by Product
-This dashboard dives into individual product-level performance to help businesses identify their top revenue-generating items, track sales trends, and monitor return behavior.
-
-## 🔍 Highlights:
-- Dynamic Revenue Target Slider: Users can filter products based on a custom revenue contribution target (e.g., Top 20%).
-
-- Product Segmentation:
-
-- A+ Group: Top 3 performers contributed $1.76M+ in revenue, each with strong profit margins and relatively low return rates.
-
-## 📊 Example Insights:
-Mountain-200 Black, 46 generated $616,779 in revenue with a return rate of 3.7%, while Mountain-200 Silver, 46 had the lowest return rate at 1.8% among A+ products.
-
-Some smaller products like HL Road Tire had a higher return rate (4.6%) despite lower revenue.
-
-## 🧩 Interactive Filters:
-Country, Category, and Year selectors
-
-The revenue Target slider dynamically updates the table
-
-### 👥 Customer Analysis Dashboard – Demographics & Behavioral Insights
-This dashboard delivers a comprehensive overview of customer profiles, spending behavior, and segmentation to help drive targeted marketing and retention strategies.
-
-🔎 Key Areas:
-##📊 1. Demographic Analysis:
-Visual distribution by:
-
-- Gender
-
-- Marital Status
-
-- Parenthood
-
-- Home Ownership
-
-- Tabs to explore deeper by:
-
-- Education Level
-
-- Income Group
-
-- Occupation
-
-- Age Group
-
-##💸 2. Expenditure Analysis:
-- Customer Count: 9.1K in 2021, a +247% increase from 2020
-
-- Average Spending: $1,021 in 2021, a -58% drop from the prior year
-
-- Monthly Trend: Notable dip in August (-66%), recovery in December (+16%)
-
-## 🧠 3. RFM-Based Customer Segmentation:
-- Promising Customers: 35.5%
-
-- About to Sleep: 28.6%
-
-- Loyal Customers: 16.3%
-
-- Champions: 8.5%
-
-- Needs Attention: 9.8%
-
-
-## 🧠 Insights for Business:
-Although customer acquisition surged, average spending dropped, suggesting a need for loyalty and re-engagement campaigns.
-
-- RFM segmentation reveals that nearly 1 in 3 customers are at risk of churn (About to Sleep), while Champions remains a small but valuable segment.
-
-
-
-## 📈 Key Business Insights keypoints:
-
-- **Customer Growth**: 247% increase in total customers YoY
-- **Spending Drop**: Despite more customers, average spending fell by 58%
-- **Top Products**: Mountain bikes (e.g., Mountain-200 series) are best-sellers with high profits and low return rates
-- **Return Rate Watch**: Some accessories like "All-Purpose Bike Stand" have higher return rates (4.2%+)
-- **Customer Segments**: 35.5% of customers are "Promising", while 28.6% are "About to Sleep" — indicating opportunities and risks
-- **Seasonality**: High spending in Jan and Dec; major drop in Aug (−66%)
+But At Risk & Lost Customers form ~24% of the base, with minimal post-promotion retention.
   
 [🔼 Back to Table of Contents](#-table-of-contents)
 
@@ -353,20 +158,55 @@ Although customer acquisition surged, average spending dropped, suggesting a nee
 
 ## 💡 Business Recommendations
 
-1. **Target High-Value Segments**  
-   Focus marketing on Loyal Customers and Champions to increase retention and repeat purchases.
+1. 🎯 Targeted Loyalty Campaigns
+Why: 45% of customers are already Loyal Customers, and 31% are Potential Loyalists.
+What to do:
 
-2. **Re-engage At-Risk Customers**  
-   Create campaigns for "About to Sleep" and "Needs Attention" segments to reduce churn.
+- Launch exclusive loyalty programs for these segments (e.g., early access, personalized offers).
 
-3. **Boost Average Spending**  
-   Introduce loyalty programs and bundle offers to increase per-customer revenue.
+- Use recency and frequency scores to automate follow-up campaigns.
 
-4. **Improve Underperforming Products**  
-   Investigate high-return rate items to improve quality or adjust marketing strategies.
+2. 📈 Optimize Promotional Strategy
+Why: Bundle Offers yield the highest daily sales, but overall YoY revenue and profit dropped.
+What to do:
 
-5. **Optimize Inventory for Seasonal Trends**  
-   Prepare for low sales periods (e.g., August) and capitalize on high-spending months like December and January.
+- Focus on high-performing promo types (like Bundle Offers).
+
+- Avoid generic discounts; instead, align promotions with high-margin categories.
+
+- Track promotion ROI per customer segment (especially for “At Risk” and “Potential Loyalists”).
+
+3. 🛒 Reassess Product-Cost Structure
+Why: Snacks and Personal Care dominate sales volume but have average profit margins.
+What to do:
+
+- Identify low-margin, high-cost products for potential delisting or repositioning.
+
+- Explore product bundling to increase sales of lower-performing, high-margin items.
+
+4. 🌍 Regional Sales Focus
+Why: Revenue heatmap shows significant regional disparity.
+What to do:
+
+- Prioritize underperforming regions with localized campaigns.
+
+- Invest in region-specific market research to understand barriers.
+
+5. 🔄 Customer Re-engagement Strategy
+Why: 23% of customers are “At Risk” and many fall into “Lost Customer” category.
+What to do:
+
+- Deploy email/SMS remarketing focused on their previously purchased items.
+
+- Offer personalized win-back discounts to encourage reactivation.
+
+6. 📊 Sales Channel Diversification
+Why: Sales are split across Departmental Store (33.9%), Super Shop (33.4%), and Online (32.6%).
+What to do:
+
+- Enhance digital presence with stronger online campaigns and UX improvements.
+
+- Incentivize omnichannel behavior through click & collect or app-based offers.
 
 [🔼 Back to Table of Contents](#-table-of-contents)
 
@@ -374,12 +214,24 @@ Although customer acquisition surged, average spending dropped, suggesting a nee
 
 ## 🌟 Project Impact
 
-- ✅ Improved customer segmentation and retention strategy
-- ✅ Highlighted top revenue-generating and underperforming products
-- ✅ Enabled data-driven seasonal marketing and product planning
-- ✅ Helped visualize the link between demographics and spending behavior
-- ✅ Empowered business users with self-service analytics dashboards
+🌟 Project Impact
+✅ Improved Customer Segmentation & Retention Strategy
+Leveraged RFM analysis to classify customers into actionable segments (Loyal, At Risk, Lost, etc.), enabling targeted campaigns and reducing churn.
 
+✅ Identified Top Revenue & Underperforming Products
+Clear visuals of category-wise sales and profitability helped focus on high-margin products and optimize inventory for low performers.
+
+✅ Enhanced Promotion Effectiveness Tracking
+Revealed that Bundle Offers had the highest sales impact per day, guiding smarter promotional planning and increasing ROI.
+
+✅ Boosted Regional Sales Strategy
+Geo insights highlighted region-wise performance, supporting localized campaigns and improving distribution efficiency.
+
+✅ Empowered Sales & Marketing Teams with Self-Service Dashboards
+Interactive, intuitive Power BI dashboards allowed non-technical users to explore KPIs, trends, and customer behavior independently.
+
+✅ Supported Goal Setting with Target Fill Tracking
+Visualizing annual target fill (currently at 59.8%) enabled leadership to proactively adjust strategy and allocate resources effectively.
 
 
 
