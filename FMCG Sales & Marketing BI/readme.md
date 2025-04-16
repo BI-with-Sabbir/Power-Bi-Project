@@ -1,17 +1,18 @@
-# Power BI Project: E-commerce Sales and Customer Analytics 
+# Power BI Project: FMCG Sales & Marketing Analysis Using power BI
 
 ## 📊 Watch Live Dashboard  
 <p align="center">
-  <a href="https://app.powerbi.com/view?r=eyJrIjoiYmQ4MGFmNzEtMGU1Yi00MzI4LTg3ZmUtZmY5ZTBiOTBmMzRmIiwidCI6IjQxYjQ2M2RkLTg1ZWItNGE1NS1iYTZmLTVhMWFjYWMyYjA5YyIsImMiOjEwfQ%3D%3D" target="_blank">
+  <a href="https://app.powerbi.com/view?r=eyJrIjoiYjRhMDljZWEtZmI0YS00ZWMyLWEzNDgtNmQ0ZmRjYTAxNGNkIiwidCI6IjQxYjQ2M2RkLTg1ZWItNGE1NS1iYTZmLTVhMWFjYWMyYjA5YyIsImMiOjEwfQ%3D%3D" target="_blank">
     <img src="https://img.shields.io/badge/Click%20Here-Power%20BI-blue?style=for-the-badge" alt="View Dashboard">
   </a>
 </p>
 
 ## 📌 Project Overview  
-![image](https://github.com/user-attachments/assets/2681ea51-5006-4550-be23-7df84ad02827)
+![image](https://github.com/user-attachments/assets/f2c980bb-0e3a-4dc8-9d98-9a469cbec5d3)
 
 
-This Power BI-powered reporting solution empowers e-commerce businesses with real-time visibility into sales trends, customer behavior, and regional performance. It enables smarter decision-making through interactive and customizable dashboards.
+
+This Business Intelligence (BI) Solution, built with Power BI, provides a comprehensive analysis of FMCG( Fast-Moving Consumer Goods) Sales Performance, Financial Health, Customer Behavior, and Marketing Effectiveness. It empowers stakeholders to make data-driven decisions and optimize strategies for sustainable business growth.
 
 ---
 
@@ -30,15 +31,15 @@ This Power BI-powered reporting solution empowers e-commerce businesses with rea
 ## 📂 Dataset Details  
 
 ### Columns in the Dataset:  
-- **Customer_Lookup:** [Click here](https://github.com/BI-with-Sabbir/Power-Bi-Project/blob/main/E-commerce%20Sales%20%26%20Customer%20Analytics/Customer%20Lookup.csv)
-- **Date_Lookup:**   [Click here](https://github.com/BI-with-Sabbir/Power-Bi-Project/blob/main/E-commerce%20Sales%20%26%20Customer%20Analytics/Date%20Lookup.csv)
-- **Customer Group:** [Click here](https://github.com/BI-with-Sabbir/Power-Bi-Project/blob/main/E-commerce%20Sales%20%26%20Customer%20Analytics/Customer%20Group.csv)
-- **Product Lookup:**[Click here](https://github.com/BI-with-Sabbir/Power-Bi-Project/blob/main/E-commerce%20Sales%20%26%20Customer%20Analytics/Product%20Lookup.csv)
-- **Product Subcategories Lookup:** [Click here](https://github.com/BI-with-Sabbir/Power-Bi-Project/blob/main/E-commerce%20Sales%20%26%20Customer%20Analytics/Product%20Subcategories%20Lookup.csv)
-- **RFM Table:** [Click here](https://github.com/BI-with-Sabbir/Power-Bi-Project/blob/main/E-commerce%20Sales%20%26%20Customer%20Analytics/RFM%20Segment.csv)
-- **Return_Table:** [Click here](https://github.com/BI-with-Sabbir/Power-Bi-Project/blob/main/E-commerce%20Sales%20%26%20Customer%20Analytics/Return.csv) 
-- **Sales Lookup:**[Click here](https://github.com/BI-with-Sabbir/Power-Bi-Project/blob/main/E-commerce%20Sales%20%26%20Customer%20Analytics/Sales.csv)
-- **Territory_Table:** [Click here](https://github.com/BI-with-Sabbir/Power-Bi-Project/blob/main/E-commerce%20Sales%20%26%20Customer%20Analytics/Territory%20Lookup.csv)
+- **Customer_Lookup:** [Click here]()
+- **Date_Lookup:**   [Click here]()
+- **Customer Group:** [Click here]()
+- **Product Lookup:**[Click here]()
+- **Product Subcategories Lookup:** [Click here]()
+- **RFM Table:** [Click here]()
+- **Return_Table:** [Click here]() 
+- **Sales Lookup:**[Click here]()
+- **Territory_Table:** [Click here]()
 
   
 [🔼 Back to Table of Contents](#-table-of-contents)
