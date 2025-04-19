@@ -1,18 +1,19 @@
-# Power BI Project: FMCG Sales & Marketing Analysis Using power BI
+# Power BI Project: Sales Optimization & FMCG Market Intelligence
 
 ## 📊 Watch Live Dashboard  
 <p align="center">
-  <a href="https://app.powerbi.com/view?r=eyJrIjoiYjRhMDljZWEtZmI0YS00ZWMyLWEzNDgtNmQ0ZmRjYTAxNGNkIiwidCI6IjQxYjQ2M2RkLTg1ZWItNGE1NS1iYTZmLTVhMWFjYWMyYjA5YyIsImMiOjEwfQ%3D%3D" target="_blank">
+  <a href="https://app.powerbi.com/view?r=eyJrIjoiNWM0Mjk1OWQtMTAxMS00OTlkLTg5NzctZDBmNmViYTYxNmRmIiwidCI6IjQxYjQ2M2RkLTg1ZWItNGE1NS1iYTZmLTVhMWFjYWMyYjA5YyIsImMiOjEwfQ%3D%3D" target="_blank">
     <img src="https://img.shields.io/badge/Click%20Here-Power%20BI-blue?style=for-the-badge" alt="View Dashboard">
   </a>
 </p>
 
 ## 📌 Project Overview  
-![image](https://github.com/user-attachments/assets/f2c980bb-0e3a-4dc8-9d98-9a469cbec5d3)
+![image](https://github.com/user-attachments/assets/29ead28c-df86-4935-aaa7-2b68cb879c8c)
 
 
 
-This Business Intelligence (BI) Solution, built with Power BI, provides a comprehensive analysis of FMCG( Fast-Moving Consumer Goods) Sales Performance, Financial Health, Customer Behavior, and Marketing Effectiveness. It empowers stakeholders to make data-driven decisions and optimize strategies for sustainable business growth.
+
+In the highly competitive Fast-Moving Consumer Goods (FMCG) sector, understanding customer preferences and optimizing sales strategies are crucial for driving growth. This project focuses on delivering actionable insights through comprehensive analysis of sales data, customer behavior,RFM segmentation and combo (bundle) sales performance.
 
 ---
 
@@ -30,16 +31,17 @@ This Business Intelligence (BI) Solution, built with Power BI, provides a compre
 
 ## 📂 Dataset Details  
 
-### Columns in the Dataset:  
-- **aligned_sales_targets:** [Click here](https://github.com/BI-with-Sabbir/Power-Bi-Project/blob/main/FMCG%20Sales%20%26%20Marketing%20BI/aligned_sales_targets.csv)
-- **calendar:**   [Click here](https://github.com/BI-with-Sabbir/Power-Bi-Project/blob/main/FMCG%20Sales%20%26%20Marketing%20BI/calendar.csv)
-- **customers:** [Click here](https://github.com/BI-with-Sabbir/Power-Bi-Project/blob/main/FMCG%20Sales%20%26%20Marketing%20BI/customers.csv)
-- **products:**[Click here](https://github.com/BI-with-Sabbir/Power-Bi-Project/blob/main/FMCG%20Sales%20%26%20Marketing%20BI/products.csv)
-- **promotions:** [Click here](https://github.com/BI-with-Sabbir/Power-Bi-Project/blob/main/FMCG%20Sales%20%26%20Marketing%20BI/promotions.csv)
-- **regions:** [Click here](https://github.com/BI-with-Sabbir/Power-Bi-Project/blob/main/FMCG%20Sales%20%26%20Marketing%20BI/regions.csv)
-- **sales_with_promotions:** [Click here](https://github.com/BI-with-Sabbir/Power-Bi-Project/blob/main/FMCG%20Sales%20%26%20Marketing%20BI/sales_with_promotions.csv) 
+### Belongs data in the Dataset:  
+[Click here](https://github.com/BI-with-Sabbir/Power-Bi-Project/blob/main/Unpacking%20FMCG%20Performance%3A%20Customer%2C%20Sales%20%26%20Combo%20Deal%20Analytics%20%20Using%20Power%20BI/FMCG.xlsx)) 
 
-
+- **dim_customer** 
+- **dim_date**  
+- **dim_Products** 
+- **dim_target_orders**
+- **fact_Order_line** 
+- **fact_Orders** 
+- **RFM Segmentation** 
+- **RFM Table** 
   
 [🔼 Back to Table of Contents](#-table-of-contents)
 
@@ -59,7 +61,7 @@ This Business Intelligence (BI) Solution, built with Power BI, provides a compre
 ---
 
 ## 📊 Data Modeling  
-![image](https://github.com/user-attachments/assets/d8917d02-c745-4478-97ad-7ebd74471521)
+![image](https://github.com/user-attachments/assets/b8bd1f8f-52fd-419f-ba5a-1ce57308152c)
 
 
 
@@ -70,51 +72,153 @@ This Business Intelligence (BI) Solution, built with Power BI, provides a compre
 ## 🧮 DAX Measures  
 ### General Measures  
 ```DAX
-Total Sales = sum(Fact_Sales[Sales_Amount]) 
+Total orders quantity shipped = SUM(fact_Order_line[delivery_qty]) 
 ```
 
 ```DAX
-Total Quantity Sold = SUM(Fact_Sales[Quantity_Sold])
-
+Total Orders quantity = SUM(fact_Order_line[order_qty]) 
 ```
 
 ```DAX
-Total Profit = [Total Sales]-[Total Cost]
+Total Order Lines = COUNT(fact_Order_line[delivery_qty])
+```
+```DAX
+Total Number of Orders = DISTINCTCOUNT(fact_Orders[order_id])
+```
+
+```DAX
+Rev = SUM(fact_Order_line[Sales Amount])
+```
+
+```DAX
+OT % = DIVIDE([Orders Delivered On Time], [Total Number of Orders], 0)
+```
+
+```DAX
+OTIF % = DIVIDE([Orders Delivered In Full and On Time], [Total Number of Orders], 0)
+```
+
+```DAX
+VOFR % = DIVIDE([Total orders quantity shipped], [Total Orders quantity], 0) 
+```
+
+```DAX
+VOFR % = DIVIDE([Total orders quantity shipped], [Total Orders quantity], 0) 
+```
+
+```DAX
+IF % = DIVIDE([Orders Delivered In Full], [Total Number of Orders],0) 
+```
+```DAX
+LIFR % = DIVIDE([LIFR], [Total Order Lines], 0) 
+```
+```DAX
+_1 Total Revenue = 
+CALCULATE(
+    [Revenue],
+    ALLSELECTED(fact_Order_line)
+)
+
+```
+```DAX
+_1 Revenue GT% = 
+DIVIDE(
+    [Revenue],
+    [_1 Total Revenue],
+    0
 )
 ```
+
 ```DAX
-Post Promotion Sales = CALCULATE([Total Sales],Dim_Promotions[Promotion_Type]="No Promotion",Fact_Sales[Date]>max(Dim_Promotions[End_Date]))/CALCULATE(DISTINCTCOUNT(Fact_Sales[Date]),
-Dim_Promotions[Promotion_Type]="No Promotion",Fact_Sales[Date]>max(Dim_Promotions[End_Date]))
+_1 Rank = 
+IF(
+    ISINSCOPE(dim_Customers[customer_name]),
+    RANKX(
+        ALLSELECTED(dim_Customers[customer_name]),
+        [Revenue]
+    )
+)
 ```
 
 ```DAX
-Pre Promotion Sales = CALCULATE([Total Sales],Dim_Promotions[Promotion_Type]="No Promotion",Fact_Sales[Date]<min(Dim_Promotions[Start_Date]))/CALCULATE(DISTINCTCOUNT(Fact_Sales[Date]),Dim_Promotions[Promotion_Type]="No Promotion",Fact_Sales[Date]<min(Dim_Promotions[Start_Date]))
+_1 Cutoff Revenue GT% = 
+VAR ClosestCustomer = [_1 Cutoff Customer f]
+VAR RevenueValue = 
+    IF(
+        SELECTEDVALUE(dim_Customers[customer_name]) = ClosestCustomer,
+        [Revenue],
+        BLANK()
+    )
+RETURN
+IF(
+    ISBLANK(RevenueValue) || RevenueValue = 0,
+    BLANK(), -- Avoid division by zero or blank values
+    RevenueValue / 70000000
+
+)
 ```
 
 ```DAX
-Pre Year Order = CALCULATE(COUNT(Fact_Sales[Transaction_ID]),Dim_Date[Year]=MAX(Dim_Date[Year])-1) 
+_1 Cutoff Revenue % = 
+VAR ClosestCustomer = [_1 Cutoff Customer f]
+RETURN
+IF(
+    SELECTEDVALUE(dim_Customers[customer_name]) = ClosestCustomer,
+    [_1 Cumulative Revenue %],
+    BLANK()
+)
 ```
 
 ```DAX
-Previous Year Cost = CALCULATE([Total Cost],Dim_Date[Year]=MAX(Dim_Date[Year])-1) 
+_1 Cutoff Rank = 
+VAR ClosestCustomer = [_1 Cutoff Customer f]
+RETURN
+IF(
+    SELECTEDVALUE(dim_Customers[customer_name]) = ClosestCustomer,
+    [_1 Rank],
+    BLANK()
+)
 ```
+
 [🔼 Back to Table of Contents](#-table-of-contents)
 
 ---
 
 ## 📈 Dashboard & Visualizations  
-### 📌 Financial Analysis 
-![image](https://github.com/user-attachments/assets/30646fb2-f8e3-4792-9476-060a372a689e)
+### 📌 Revenue Analysis by Pareto Chart
+![image](https://github.com/user-attachments/assets/ca55a845-919f-4b17-a6cb-378ac467976c)
+
 
 
 
 ### 📌 Customer Analysis by RFM Sales
-![image](https://github.com/user-attachments/assets/586bce8a-44b5-478d-9b7e-7ffc7c4f3a65)
+![image](https://github.com/user-attachments/assets/4366ac41-1b16-43ca-9eaf-07ab56d33d9a)
 
 
 
-### 📌 Marketing Analysis on individual product
-![image](https://github.com/user-attachments/assets/90f39e60-493d-4540-8c4a-b02ca3d0e547)
+
+### 📌 Supply chain analysis By On time(OT), In Full(IF), OTIF(On Tine & In Full)
+![image](https://github.com/user-attachments/assets/7bca7d63-43ac-4854-8440-e85207d8aa14)
+
+
+### 📌 Order Analysis
+![image](https://github.com/user-attachments/assets/6825dabe-2a71-4e7b-9a28-79d02b388624)
+
+
+### 📌 Order line Analysis
+![image](https://github.com/user-attachments/assets/13b57a2e-630b-4c47-8249-0c74a0df99c2)
+
+
+### 📌 Delivery Analysis 
+![image](https://github.com/user-attachments/assets/a23fd260-4479-4c17-a702-da15adb01283)
+
+
+### 📌 Trend Analysis 
+![image](https://github.com/user-attachments/assets/7bcac441-4de9-463a-bfef-6299448058e1)
+
+
+### 📌 Scorecard Analysis
+![image](https://github.com/user-attachments/assets/e0e8f399-d4b7-4805-b3b6-7a4c6fe1b0bb)
 
 
 [🔼 Back to Table of Contents](#-table-of-contents)
@@ -123,90 +227,68 @@ Previous Year Cost = CALCULATE([Total Cost],Dim_Date[Year]=MAX(Dim_Date[Year])-1
 ## 📈 Key Business Insights
 
 🔍 Key Business Insight: Promotions Boost Sales but Fail to Drive Long-Term Loyalty
-📊 Sales & Promotions Analysis
-- Bundle Offers generated the highest daily sales (152.9 units/day), far outperforming other promotion types.
-
-- Sales quantity increased from 1,191 (Pre-Promo) to 1,395 (Post-Promo) — a 17% uplift.
-
-- However, YoY Sales Quantity and Revenue still dropped by 22.4% and 21.3% respectively, signaling issues beyond promotions.
-
-💸 Profitability Insight
-- Despite promotions, Profit % remains flat at 24.8% (vs 24.9% last year).
-
-- Total cost decreased by 21.2%, yet revenue dropped at the same pace, indicating inefficient revenue generation.
-
-- High-cost categories like Snacks and Personal Care contribute most to sales, but have moderate profit margins (~23–37%).
-
-👥 Customer Behavior Insight
-Top 2 segments by volume:
-
-- Loyal Customers: 45%
-
-- Potential Loyalists: 31%
-
-🔼 Promotions impact is highest among:
-
-- Potential Loyalists (+2638 units)
-
-- At-Risk Customers (+2825 units)
-
-But At Risk & Lost Customers form ~24% of the base, with minimal post-promotion retention.
-  
-[🔼 Back to Table of Contents](#-table-of-contents)
+This document presents the core findings and observations based on the FMCG sales, customer behavior, and supply chain performance data.
 
 ---
 
-## 💡 Business Recommendations
+## 🧾 1. Revenue Concentration (Pareto Analysis)
+- **56% of total revenue** comes from **top 5 customers**.
+- Major clients include: `City Mart`, `Royal Mart BD`, `Horizon Retail`, etc.
+- Indicates strong dependency on a few key customers, crucial for retention and growth strategies.
 
-1. 🎯 Targeted Loyalty Campaigns
-Why: 45% of customers are already Loyal Customers, and 31% are Potential Loyalists.
-What to do:
+---
 
-- Launch exclusive loyalty programs for these segments (e.g., early access, personalized offers).
+## 🛒 2. Top Product & Manager Performance
+- **Top 3 products** by sales:
+  - `Licon`, `Nihar Lovely`, and `Parachute Baby Care` — each contributes ~33-34% of their category revenue.
+- **Top Sales Managers**:
+  - `Md Sabit`, `Shanta Aktar`, `Foiz Khan` — each drove over **24M+** in sales.
 
-- Use recency and frequency scores to automate follow-up campaigns.
+---
 
-2. 📈 Optimize Promotional Strategy
-Why: Bundle Offers yield the highest daily sales, but overall YoY revenue and profit dropped.
-What to do:
+## 🧍‍♂️ 3. Customer Segmentation (RFM Analysis)
+- **Customer Categories**:
+  - 20% Champions
+  - 25% Loyal Customers
+  - 13-15% At Risk / Need Attention
+- Opportunity to re-engage dormant segments and nurture potential loyalists.
 
-- Focus on high-performing promo types (like Bundle Offers).
+---
 
-- Avoid generic discounts; instead, align promotions with high-margin categories.
+## 🚚 4. Supply Chain Performance (OTIF Metrics)
+- **On-Time (OT%)**: 59% vs Target 84%
+- **In-Full (IF%)**: 53% vs Target 76%
+- **OTIF% Combined**: 29% vs Target 67%
+- Key bottlenecks identified: Delivery delays, partial shipments, supply issues.
 
-- Track promotion ROI per customer segment (especially for “At Risk” and “Potential Loyalists”).
+---
 
-3. 🛒 Reassess Product-Cost Structure
-Why: Snacks and Personal Care dominate sales volume but have average profit margins.
-What to do:
+## 📦 5. Order & Delivery Satisfaction
+- **Total Orders:** 31,729
+- **Total Revenue:** 470.8M
+- **Average Delivery Satisfaction:** 3.7/5
+- Gap between order experience and delivery experience implies logistics improvement is needed.
 
-- Identify low-margin, high-cost products for potential delisting or repositioning.
+---
 
-- Explore product bundling to increase sales of lower-performing, high-margin items.
+## 🌍 6. Regional Revenue Distribution
+- **Top Performing Cities**:
+  - Barishal, Dhaka, Rangpur, Khulna.
+- **Top Clients by Region**:
+  - Barishal: `Delta Store`, `Horizon Retail`
+  - Dhaka: `Royal Mart BD`, `Loyal Trade House`
+- Recommended: Focused logistics improvement and marketing for high-potential regions.
 
-4. 🌍 Regional Sales Focus
-Why: Revenue heatmap shows significant regional disparity.
-What to do:
+---
 
-- Prioritize underperforming regions with localized campaigns.
+## 📉 7. Performance Scorecard Summary
+- **Targets Missed**:
+  - OTIF%, IF%, OT%, Delivery Satisfaction
+  - Quantity Delivered vs Ordered
+- Recommendation: Investigate internal fulfillment, delivery scheduling, and stock optimization processes.
 
-- Invest in region-specific market research to understand barriers.
+---
 
-5. 🔄 Customer Re-engagement Strategy
-Why: 23% of customers are “At Risk” and many fall into “Lost Customer” category.
-What to do:
-
-- Deploy email/SMS remarketing focused on their previously purchased items.
-
-- Offer personalized win-back discounts to encourage reactivation.
-
-6. 📊 Sales Channel Diversification
-Why: Sales are split across Departmental Store (33.9%), Super Shop (33.4%), and Online (32.6%).
-What to do:
-
-- Enhance digital presence with stronger online campaigns and UX improvements.
-
-- Incentivize omnichannel behavior through click & collect or app-based offers.
 
 [🔼 Back to Table of Contents](#-table-of-contents)
 
@@ -215,23 +297,11 @@ What to do:
 ## 🌟 Project Impact
 
 🌟 Project Impact
-✅ Improved Customer Segmentation & Retention Strategy
-Leveraged RFM analysis to classify customers into actionable segments (Loyal, At Risk, Lost, etc.), enabling targeted campaigns and reducing churn.
-
-✅ Identified Top Revenue & Underperforming Products
-Clear visuals of category-wise sales and profitability helped focus on high-margin products and optimize inventory for low performers.
-
-✅ Enhanced Promotion Effectiveness Tracking
-Revealed that Bundle Offers had the highest sales impact per day, guiding smarter promotional planning and increasing ROI.
-
-✅ Boosted Regional Sales Strategy
-Geo insights highlighted region-wise performance, supporting localized campaigns and improving distribution efficiency.
-
-✅ Empowered Sales & Marketing Teams with Self-Service Dashboards
-Interactive, intuitive Power BI dashboards allowed non-technical users to explore KPIs, trends, and customer behavior independently.
-
-✅ Supported Goal Setting with Target Fill Tracking
-Visualizing annual target fill (currently at 59.8%) enabled leadership to proactively adjust strategy and allocate resources effectively.
+## ✅ Recommendations
+- Strengthen relationships with top revenue-generating customers.
+- Address supply chain gaps to improve OTIF and delivery satisfaction.
+- Focus retention strategies on at-risk and potential loyal customers.
+- Prioritize regions with high sales contributions for promotional activities.
 
 
 
