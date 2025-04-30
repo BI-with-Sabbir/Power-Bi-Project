@@ -3,7 +3,7 @@
 
 
 ## 📊 Watch Live Dashboard  
-  <a href="(https://app.powerbi.com/view?r=eyJrIjoiNzRhYjc4MTEtNjVhYi00MWVmLTllODAtNzcxYjYxOGQzOGM1IiwidCI6IjQxYjQ2M2RkLTg1ZWItNGE1NS1iYTZmLTVhMWFjYWMyYjA5YyIsImMiOjEwfQ%3D%3D)" target="_blank">
+  <a href="[(https://app.powerbi.com/view?r=eyJrIjoiNzRhYjc4MTEtNjVhYi00MWVmLTllODAtNzcxYjYxOGQzOGM1IiwidCI6IjQxYjQ2M2RkLTg1ZWItNGE1NS1iYTZmLTVhMWFjYWMyYjA5YyIsImMiOjEwfQ%3D%3D)]" target="_blank">
 <p align="center"> 
     <img src="https://img.shields.io/badge/Click%20Here-Power%20BI-blue?style=for-the-badge" alt="View Dashboard">
   </a>
