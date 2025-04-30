@@ -1,8 +1,6 @@
 # Power BI Project: Financial Reporting In Power BI
 
 
-
-## 📊 Watch Live Dashboard  
 ## 📊 Watch Live Dashboard  
 <p align="center">
   <a href="https://app.powerbi.com/view?r=eyJrIjoiNzRhYjc4MTEtNjVhYi00MWVmLTllODAtNzcxYjYxOGQzOGM1IiwidCI6IjQxYjQ2M2RkLTg1ZWItNGE1NS1iYTZmLTVhMWFjYWMyYjA5YyIsImMiOjEwfQ%3D%3D" target="_blank">
